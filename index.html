@@ -1,1 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angelic Charles | Data Scientist & Computational Neuroscience Researcher</title>
+    <link rel="icon" type="image/png" href="https://github.com/visionbyangelic.png">
+    <meta name="description" content="Angelic Charles (visionbyangelic) — Data Scientist, Computer Vision Engineer, and Computational Neuroscience Researcher based in Nigeria. Creator of OralSight, Emotiwave, and the Nigerian Tech Job Market Analyser.">
+    <meta name="keywords" content="Angelic Charles, visionbyangelic, NerdyAlgorithm, Data Scientist, Computer Vision, Computational Neuroscience, BCI, OralSight, Emotiwave, Nigerian Tech, EEG, Deep Learning, Nigeria">
+    <meta name="author" content="Angelic Charles">
+    <meta property="og:title" content="Angelic Charles | Data Scientist & Computational Neuroscience Researcher">
+    <meta property="og:description" content="Data Scientist, Computer Vision Engineer, and Computational Neuroscience Researcher based in Nigeria.">
+    <meta property="og:image" content="https://github.com/visionbyangelic.png">
+    <meta property="og:url" content="https://visionbyangelic.github.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@visionbyangelic">
+    <link rel="canonical" href="https://visionbyangelic.github.io">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --bg: #050c1a;
+            --surface: #0d1b2e;
+            --surface2: #102035;
+            --border: rgba(94, 195, 255, 0.12);
+            --accent: #5ec3ff;
+            --accent2: #a78bfa;
+            --accent3: #34d399;
+            --text: #e2eaf4;
+            --muted: rgba(226, 234, 244, 0.5);
+            --tag-bg: rgba(94, 195, 255, 0.08);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+            padding: 40px 20px 60px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Background neural net grid */
+        body::before {
+            content: '';
+            position: fixed;
+            inset: 0;
+            background-image:
+                radial-gradient(ellipse 80% 50% at 50% -10%, rgba(94, 195, 255, 0.07) 0%, transparent 60%),
+                linear-gradient(rgba(94, 195, 255, 0.025) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(94, 195, 255, 0.025) 1px, transparent 1px);
+            background-size: 100% 100%, 44px 44px, 44px 44px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 560px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ── Header ── */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .avatar-wrap {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .avatar-wrap::before {
+            content: '';
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            background: conic-gradient(var(--accent), var(--accent2), var(--accent3), var(--accent));
+            animation: spin 6s linear infinite;
+            z-index: -1;
+        }
+
+        .avatar-wrap::after {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: 50%;
+            background: var(--bg);
+            z-index: -1;
+        }
+
+        .avatar {
+            width: 96px;
+            height: 96px;
+            border-radius: 50%;
+            display: block;
+        }
+
+        .name {
+            font-family: 'DM Serif Display', serif;
+            font-size: 2rem;
+            letter-spacing: -0.01em;
+            color: var(--text);
+            margin-bottom: 6px;
+        }
+
+        .handle {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            margin-bottom: 14px;
+            opacity: 0.85;
+        }
+
+        .bio {
+            font-size: 0.92rem;
+            line-height: 1.65;
+            color: var(--muted);
+            max-width: 420px;
+            margin: 0 auto 18px;
+        }
+
+        .tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+        }
+
+        .tag {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            border-radius: 4px;
+            color: var(--accent);
+            letter-spacing: 0.04em;
+        }
+
+        /* ── Section ── */
+        .section {
+            margin-bottom: 28px;
+            animation: fadeUp 0.6s ease both;
+        }
+
+        .section:nth-child(2) { animation-delay: 0.1s; }
+        .section:nth-child(3) { animation-delay: 0.2s; }
+        .section:nth-child(4) { animation-delay: 0.3s; }
+        .section:nth-child(5) { animation-delay: 0.4s; }
+        .section:nth-child(6) { animation-delay: 0.5s; }
+
+        .section-label {
+            font-family: 'DM Mono', monospace;
+            font-size: 0.68rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin-bottom: 10px;
+            padding-left: 4px;
+        }
+
+        .links { display: flex; flex-direction: column; gap: 8px; }
+
+        .link-card {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            background: var(--surface);
+            padding: 14px 18px;
+            border-radius: 10px;
+            text-decoration: none;
+            color: var(--text);
+            border: 1px solid var(--border);
+            transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .link-card::before {
+            content: '';
+            position: absolute;
+            left: 0; top: 0; bottom: 0;
+            width: 3px;
+            background: var(--card-accent, var(--accent));
+            border-radius: 10px 0 0 10px;
+            opacity: 0;
+            transition: opacity 0.18s;
+        }
+
+        .link-card:hover {
+            transform: translateX(4px);
+            background: var(--surface2);
+            border-color: rgba(94, 195, 255, 0.25);
+            box-shadow: 0 4px 24px rgba(94, 195, 255, 0.07);
+        }
+
+        .link-card:hover::before { opacity: 1; }
+
+        .icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: var(--tag-bg);
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 1rem;
+        }
+
+        .link-info { flex: 1; min-width: 0; }
+        .link-title { font-size: 0.9rem; font-weight: 500; }
+        .link-desc { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+
+        .arrow {
+            color: var(--muted);
+            font-size: 0.9rem;
+            flex-shrink: 0;
+            transition: color 0.18s, transform 0.18s;
+        }
+
+        .link-card:hover .arrow {
+            color: var(--accent);
+            transform: translateX(2px);
+        }
+
+        /* accent variants */
+        .link-card.purple { --card-accent: var(--accent2); }
+        .link-card.green  { --card-accent: var(--accent3); }
+        .link-card.blue   { --card-accent: var(--accent);  }
+
+        /* ── Footer ── */
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-family: 'DM Mono', monospace;
+            font-size: 0.72rem;
+            color: var(--muted);
+            letter-spacing: 0.04em;
+            animation: fadeUp 0.6s 0.6s ease both;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <!-- Header -->
+    <header class="header">
+        <div class="avatar-wrap">
+            <img src="https://github.com/visionbyangelic.png" alt="Angelic Charles" class="avatar">
+        </div>
+        <h1 class="name">Angelic Charles</h1>
+        <p class="handle">@visionbyangelic · NerdyAlgorithm</p>
+        <p class="bio">
+            Data Scientist & Computer Vision Engineer · Computational Neuroscience Researcher · 
+            Building AI-powered solutions at the intersection of deep learning and the brain. Based in Nigeria.
+        </p>
+        <div class="tags">
+            <span class="tag">EEG / BCI</span>
+            <span class="tag">Computer Vision</span>
+            <span class="tag">Deep Learning</span>
+            <span class="tag">Neuroscience</span>
+            <span class="tag">Nigeria</span>
+        </div>
+    </header>
+
+    <!-- Professional -->
+    <section class="section">
+        <p class="section-label">Professional</p>
+        <div class="links">
+            <a href="https://linkedin.com/in/angeliccharles" class="link-card blue" target="_blank" rel="noopener">
+                <div class="icon">💼</div>
+                <div class="link-info">
+                    <div class="link-title">LinkedIn</div>
+                    <div class="link-desc">Professional profile & experience</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://github.com/visionbyangelic" class="link-card blue" target="_blank" rel="noopener">
+                <div class="icon">🐙</div>
+                <div class="link-info">
+                    <div class="link-title">GitHub</div>
+                    <div class="link-desc">Projects, code & open-source work</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Research & Publications -->
+    <section class="section">
+        <p class="section-label">Research & Publications</p>
+        <div class="links">
+            <a href="https://orcid.org/0009-0008-7279-9663" class="link-card green" target="_blank" rel="noopener">
+                <div class="icon">🔬</div>
+                <div class="link-info">
+                    <div class="link-title">ORCID</div>
+                    <div class="link-desc">Research identity · 0009-0008-7279-9663</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://figshare.com/articles/preprint/Emotiwave_A_Multimodal_Emotion_Recognition_System/31567024" class="link-card green" target="_blank" rel="noopener">
+                <div class="icon">📄</div>
+                <div class="link-info">
+                    <div class="link-title">Figshare — Emotiwave Preprint</div>
+                    <div class="link-desc">Multimodal emotion recognition system (DF2025-069)</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://hal.science/hal-05557467" class="link-card green" target="_blank" rel="noopener">
+                <div class="icon">📑</div>
+                <div class="link-info">
+                    <div class="link-title">HAL Science — Emotiwave</div>
+                    <div class="link-desc">Open archive preprint · hal-05557467</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://www.academia.edu" class="link-card green" target="_blank" rel="noopener">
+                <div class="icon">🎓</div>
+                <div class="link-info">
+                    <div class="link-title">Academia.edu</div>
+                    <div class="link-desc">Undergraduate biochemistry thesis & research</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Writing -->
+    <section class="section">
+        <p class="section-label">Writing</p>
+        <div class="links">
+            <a href="https://nerdyalgorithm.hashnode.dev" class="link-card blue" target="_blank" rel="noopener">
+                <div class="icon">⚡</div>
+                <div class="link-info">
+                    <div class="link-title">Hashnode — NerdyAlgorithm</div>
+                    <div class="link-desc">Technical guides · Neuroscience deep dives</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://medium.com/@angeliccharles" class="link-card blue" target="_blank" rel="noopener">
+                <div class="icon">✍️</div>
+                <div class="link-info">
+                    <div class="link-title">Medium</div>
+                    <div class="link-desc">Research narratives & case studies</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://open.substack.com/pub/nerdyalgorithm" class="link-card blue" target="_blank" rel="noopener">
+                <div class="icon">📬</div>
+                <div class="link-info">
+                    <div class="link-title">Substack — The Nerdy Algorithm</div>
+                    <div class="link-desc">Newsletter on AI, brains & building in public</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section class="section">
+        <p class="section-label">Featured Projects</p>
+        <div class="links">
+            <a href="https://oralsight.vercel.app" class="link-card purple" target="_blank" rel="noopener">
+                <div class="icon">🦷</div>
+                <div class="link-info">
+                    <div class="link-title">OralSight</div>
+                    <div class="link-desc">AI-powered oral lesion classification web app</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://github.com/visionbyangelic/nigerian-job-market-analyser" class="link-card purple" target="_blank" rel="noopener">
+                <div class="icon">🇳🇬</div>
+                <div class="link-info">
+                    <div class="link-title">Nigerian Tech Job Market Analyser</div>
+                    <div class="link-desc">Multi-agent GenAI system · Azure OpenAI GPT-4o</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://huggingface.co/spaces/NerdyAlgorithm/oralscan-api" class="link-card purple" target="_blank" rel="noopener">
+                <div class="icon">🤗</div>
+                <div class="link-info">
+                    <div class="link-title">HuggingFace — OralScan API</div>
+                    <div class="link-desc">MobileNetV2 Gradio backend for OralSight</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Social -->
+    <section class="section">
+        <p class="section-label">Social</p>
+        <div class="links">
+            <a href="https://twitter.com/visionbyangelic" class="link-card blue" target="_blank" rel="noopener">
+                <div class="icon">𝕏</div>
+                <div class="link-info">
+                    <div class="link-title">X / Twitter — @visionbyangelic</div>
+                    <div class="link-desc">Tech, research & neuroscience updates</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://twitter.com/thegeekingmoon" class="link-card blue" target="_blank" rel="noopener">
+                <div class="icon">🌙</div>
+                <div class="link-info">
+                    <div class="link-title">X / Twitter — @thegeekingmoon</div>
+                    <div class="link-desc">Personal musings & creative expression</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="mailto:visionbyangelic@gmail.com" class="link-card blue">
+                <div class="icon">✉️</div>
+                <div class="link-info">
+                    <div class="link-title">Email</div>
+                    <div class="link-desc">visionbyangelic@gmail.com</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>© 2026 Angelic Charles · visionbyangelic · Port Harcourt, Nigeria</p>
+        <p style="margin-top:6px;">ORCID 0009-0008-7279-9663</p>
+    </footer>
+
+</div>
+</body>
+</html>
