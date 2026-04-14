@@ -3,22 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Angelic Charles | Data Scientist & Computational Neuroscience Researcher</title>
-    <meta name="description" content="Angelic Charles (visionbyangelic) — Data Scientist, Computer Vision Engineer, and Computational Neuroscience Researcher. Creator of OralSight, Emotiwave, Neuro-Fatigue Predictor, and the Nigerian Tech Job Market Analyser.">
-    <meta name="keywords" content="Angelic Charles, visionbyangelic, NerdyAlgorithm, Data Scientist, Computer Vision, Computational Neuroscience, OralSight, Emotiwave, Neuro-Fatigue, Deep Learning, EEG, Multimodal AI">
+    <title>Angelic Charles | Computational Neuroscience & ML Researcher</title>
+    <meta name="description" content="Angelic Charles (visionbyangelic) — Independent Researcher at the intersection of Computational Neuroscience and Machine Learning. Creator of EM-NAV, OralSight, and Emotiwave.">
+    <meta name="keywords" content="Angelic Charles, visionbyangelic, NerdyAlgorithm, Computational Neuroscience, Data Science, SNN, BCI, EM-NAV, OralSight, Deep Learning, Nigeria AI">
     <meta name="author" content="Angelic Charles">
-    <meta property="og:title" content="Angelic Charles | Data Scientist & Computational Neuroscience Researcher">
-    <meta property="og:description" content="Independent Researcher · Computational Neuroscience × ML.">
+    
+    <meta property="og:title" content="Angelic Charles | Computational Neuroscience & ML">
+    <meta property="og:description" content="Building systems that probe how intelligence emerges — biological and artificial.">
     <meta property="og:image" content="https://github.com/visionbyangelic.png">
     <meta property="og:url" content="https://visionbyangelic.github.io">
-    <meta name="twitter:card" content="summary">
-    <meta name="twitter:site" content="@visionbyangelic">
-    <link rel="canonical" href="https://visionbyangelic.github.io">
+    
     <link rel="icon" type="image/png" href="https://github.com/visionbyangelic.png">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
@@ -43,7 +41,6 @@
             color: var(--text);
             min-height: 100vh;
             padding: 48px 20px 72px;
-            position: relative;
             overflow-x: hidden;
         }
 
@@ -51,35 +48,16 @@
             content: '';
             position: fixed;
             inset: 0;
-            background:
+            background: 
                 radial-gradient(ellipse 60% 40% at 70% 0%, rgba(139, 168, 255, 0.06) 0%, transparent 60%),
                 radial-gradient(ellipse 40% 30% at 20% 80%, rgba(192, 132, 252, 0.04) 0%, transparent 55%);
             pointer-events: none;
             z-index: 0;
         }
 
-        body::after {
-            content: '';
-            position: fixed;
-            inset: 0;
-            background-image: radial-gradient(rgba(139,168,255,0.055) 1px, transparent 1px);
-            background-size: 32px 32px;
-            pointer-events: none;
-            z-index: 0;
-        }
+        .container { max-width: 580px; margin: 0 auto; position: relative; z-index: 1; }
 
-        .container {
-            max-width: 560px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 1;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 44px;
-            animation: fadeUp 0.5s ease both;
-        }
+        .header { text-align: center; margin-bottom: 40px; animation: fadeUp 0.6s ease both; }
 
         .avatar-ring {
             position: relative;
@@ -97,430 +75,208 @@
             z-index: -1;
         }
 
-        .avatar-ring::after {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: 50%;
-            background: var(--bg);
-            z-index: -1;
-        }
+        .avatar { width: 100px; height: 100px; border-radius: 50%; display: block; border: 2px solid var(--bg); }
 
-        .avatar {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            display: block;
-        }
+        .name { font-family: 'Playfair Display', serif; font-size: 2.2rem; font-weight: 700; margin-bottom: 4px; }
+        .handle { font-family: 'DM Mono', monospace; font-size: 0.75rem; color: var(--accent); letter-spacing: 0.1em; margin-bottom: 16px; }
+        .bio { font-size: 0.95rem; line-height: 1.6; color: var(--muted); margin-bottom: 20px; font-weight: 300; }
 
-        .name {
-            font-family: 'Playfair Display', serif;
-            font-size: 2.1rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text);
-            margin-bottom: 5px;
-        }
-
-        .handle {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--accent);
-            letter-spacing: 0.1em;
-            margin-bottom: 16px;
-            opacity: 0.8;
-        }
-
-        .bio {
-            font-size: 0.9rem;
-            line-height: 1.7;
-            color: var(--muted);
-            max-width: 400px;
-            margin: 0 auto 20px;
-            font-weight: 300;
-        }
-
-        .tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-            justify-content: center;
-        }
-
-        .tag {
-            font-family: 'DM Mono', monospace;
-            font-size: 0.67rem;
-            padding: 3px 10px;
-            background: var(--tag-bg);
-            border: 1px solid var(--border);
-            border-radius: 3px;
-            color: var(--accent);
-            letter-spacing: 0.05em;
-        }
-
-        .divider {
-            height: 1px;
-            background: var(--border);
-            margin: 0 0 32px;
-        }
-
-        .section {
-            margin-bottom: 32px;
-            animation: fadeUp 0.5s ease both;
-        }
-        .section:nth-child(2) { animation-delay: 0.08s; }
-        .section:nth-child(3) { animation-delay: 0.15s; }
-        .section:nth-child(4) { animation-delay: 0.22s; }
-        .section:nth-child(5) { animation-delay: 0.29s; }
-        .section:nth-child(6) { animation-delay: 0.36s; }
-        .section:nth-child(7) { animation-delay: 0.43s; }
-
+        .section { margin-bottom: 36px; animation: fadeUp 0.5s ease both; }
         .section-label {
             font-family: 'DM Mono', monospace;
-            font-size: 0.64rem;
+            font-size: 0.65rem;
             letter-spacing: 0.15em;
             text-transform: uppercase;
             color: var(--muted);
-            margin-bottom: 10px;
-            padding-left: 2px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
+        .section-label::after { content: ''; height: 1px; flex: 1; background: var(--border); }
 
+        /* Skills Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        .skill-item {
+            background: var(--surface);
+            padding: 10px 14px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+        }
+        .skill-cat { font-family: 'DM Mono', monospace; font-size: 0.6rem; color: var(--accent); text-transform: uppercase; margin-bottom: 4px; }
+        .skill-val { font-size: 0.8rem; font-weight: 500; color: var(--text); }
+
+        /* Links */
         .links { display: flex; flex-direction: column; gap: 8px; }
-
         .link-card {
             display: flex;
             align-items: center;
             gap: 14px;
             background: var(--surface);
-            padding: 13px 16px;
-            border-radius: 10px;
+            padding: 14px 16px;
+            border-radius: 12px;
             text-decoration: none;
             color: var(--text);
             border: 1px solid var(--border);
-            transition: transform 0.15s ease, background 0.15s ease, border-color 0.15s ease;
-            position: relative;
-            overflow: hidden;
+            transition: all 0.2s ease;
         }
-
-        .link-card::before {
-            content: '';
-            position: absolute;
-            left: 0; top: 0; bottom: 0;
-            width: 3px;
-            background: var(--c, var(--accent));
-            border-radius: 10px 0 0 10px;
-            opacity: 0;
-            transition: opacity 0.15s;
-        }
-
         .link-card:hover {
-            transform: translateX(5px);
+            transform: translateX(4px);
             background: var(--surface2);
-            border-color: rgba(139, 168, 255, 0.22);
+            border-color: rgba(139, 168, 255, 0.3);
         }
-
-        .link-card:hover::before { opacity: 1; }
-
-        .c-blue   { --c: var(--accent);  }
-        .c-purple { --c: var(--accent2); }
-        .c-green  { --c: var(--accent3); }
-        .c-orange { --c: var(--accent4); }
-
         .icon {
-            width: 38px;
-            height: 38px;
+            width: 36px; height: 36px;
             border-radius: 8px;
             background: var(--tag-bg);
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
-            font-size: 1.05rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.1rem;
         }
-
-        .link-info { flex: 1; min-width: 0; }
-
-        .link-title {
-            font-size: 0.88rem;
-            font-weight: 500;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .link-desc {
-            font-size: 0.73rem;
-            color: var(--muted);
-            margin-top: 2px;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .arrow {
-            color: var(--muted);
-            font-size: 0.85rem;
-            flex-shrink: 0;
-            transition: color 0.15s, transform 0.15s;
-        }
-        .link-card:hover .arrow { color: var(--accent); transform: translateX(2px); }
+        .link-info { flex: 1; }
+        .link-title { font-size: 0.9rem; font-weight: 600; }
+        .link-desc { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
+        
+        .c-blue { border-left: 3px solid var(--accent); }
+        .c-purple { border-left: 3px solid var(--accent2); }
+        .c-green { border-left: 3px solid var(--accent3); }
+        .c-orange { border-left: 3px solid var(--accent4); }
 
         .footer {
-            text-align: center;
-            margin-top: 44px;
-            font-family: 'DM Mono', monospace;
-            font-size: 0.7rem;
-            color: var(--muted);
-            letter-spacing: 0.04em;
-            line-height: 1.8;
-            animation: fadeUp 0.5s 0.5s ease both;
+            text-align: center; margin-top: 60px;
+            font-family: 'DM Mono', monospace; font-size: 0.7rem; color: var(--muted);
+            opacity: 0.6;
         }
 
         @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(14px); }
-            to   { opacity: 1; transform: translateY(0); }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
         @keyframes spin { to { transform: rotate(360deg); } }
+
+        @media (max-width: 480px) {
+            .skills-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-<div class="container">
 
+<div class="container">
     <header class="header">
         <div class="avatar-ring">
             <img src="https://github.com/visionbyangelic.png" alt="Angelic Charles" class="avatar">
         </div>
         <h1 class="name">Angelic Charles</h1>
-        <p class="handle">@visionbyangelic &middot; NerdyAlgorithm</p>
+        <p class="handle">@visionbyangelic &bull; NerdyAlgorithm</p>
         <p class="bio">
-            Data Scientist &amp; Computer Vision Engineer &middot; Computational Neuroscience Researcher &middot;
-            Building multimodal AI systems at the intersection of deep learning and the brain.
+            <b>Independent Researcher &middot; Computational Neuroscience &times; ML</b><br>
+            Building systems that probe how intelligence emerges—biological and artificial.
         </p>
-        <div class="tags">
-            <span class="tag">Computer Vision</span>
-            <span class="tag">Deep Learning</span>
-            <span class="tag">Computational Neuroscience</span>
-            <span class="tag">Multimodal AI</span>
-        </div>
     </header>
 
-    <div class="divider"></div>
-
-    <!-- Professional -->
     <section class="section">
-        <p class="section-label">Professional</p>
-        <div class="links">
-            <a href="https://linkedin.com/in/angeliccharles" class="link-card c-blue" target="_blank" rel="noopener">
-                <div class="icon">💼</div>
-                <div class="link-info">
-                    <div class="link-title">LinkedIn</div>
-                    <div class="link-desc">Professional profile &amp; experience</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-            <a href="https://github.com/visionbyangelic" class="link-card c-blue" target="_blank" rel="noopener">
-                <div class="icon">🐙</div>
-                <div class="link-info">
-                    <div class="link-title">GitHub &mdash; visionbyangelic</div>
-                    <div class="link-desc">20 repositories &middot; Open-source ML &amp; CV work</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-            <a href="https://www.kaggle.com/nerdyalgorithm" class="link-card c-blue" target="_blank" rel="noopener">
-                <div class="icon">📊</div>
-                <div class="link-info">
-                    <div class="link-title">Kaggle &mdash; NerdyAlgorithm</div>
-                    <div class="link-desc">Datasets, notebooks &amp; competitions</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
+        <p class="section-label">Technical Stack</p>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <p class="skill-cat">Neuro & ML</p>
+                <p class="skill-val">PyTorch, TensorFlow, Brian2, MNE</p>
+            </div>
+            <div class="skill-item">
+                <p class="skill-cat">Vision</p>
+                <p class="skill-val">OpenCV, YOLOv8, MediaPipe</p>
+            </div>
+            <div class="skill-item">
+                <p class="skill-cat">Languages</p>
+                <p class="skill-val">Python, SQL, JavaScript, Java</p>
+            </div>
+            <div class="skill-item">
+                <p class="skill-cat">Creative</p>
+                <p class="skill-val">Blender, Arduino, Raspberry Pi</p>
+            </div>
         </div>
     </section>
 
-    <!-- Research -->
     <section class="section">
-        <p class="section-label">Research &amp; Publications</p>
+        <p class="section-label">Featured Research & Projects</p>
         <div class="links">
-            <a href="https://orcid.org/0009-0008-7279-9663" class="link-card c-green" target="_blank" rel="noopener">
-                <div class="icon">🔬</div>
+            <a href="https://github.com/visionbyangelic/embodied-morphological-navigation" class="link-card c-orange" target="_blank">
+                <div class="icon">🚀</div>
                 <div class="link-info">
-                    <div class="link-title">ORCID</div>
-                    <div class="link-desc">Research identity &middot; 0009-0008-7279-9663</div>
+                    <div class="link-title">EM-NAV</div>
+                    <div class="link-desc">SNN agent in 3D Blender environments</div>
                 </div>
-                <span class="arrow">&#8594;</span>
             </a>
-            <a href="https://figshare.com/articles/preprint/Emotiwave_A_Multimodal_Emotion_Recognition_System/31567024" class="link-card c-green" target="_blank" rel="noopener">
-                <div class="icon">📄</div>
-                <div class="link-info">
-                    <div class="link-title">Figshare &mdash; Emotiwave Preprint</div>
-                    <div class="link-desc">Multimodal emotion recognition &middot; DOI: 10.6084/m9.figshare.31567024</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-            <a href="https://hal.science/hal-05557467" class="link-card c-green" target="_blank" rel="noopener">
-                <div class="icon">📑</div>
-                <div class="link-info">
-                    <div class="link-title">HAL Science &mdash; Emotiwave</div>
-                    <div class="link-desc">Open archive preprint &middot; hal-05557467</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-            <a href="https://www.academia.edu" class="link-card c-green" target="_blank" rel="noopener">
-                <div class="icon">🎓</div>
-                <div class="link-info">
-                    <div class="link-title">Academia.edu</div>
-                    <div class="link-desc">Undergraduate biochemistry thesis</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-        </div>
-    </section>
-
-    <!-- Projects -->
-    <section class="section">
-        <p class="section-label">Featured Projects</p>
-        <div class="links">
-            <a href="https://oralsight.vercel.app" class="link-card c-orange" target="_blank" rel="noopener">
+            <a href="https://oralsight.vercel.app" class="link-card c-orange" target="_blank">
                 <div class="icon">🦷</div>
                 <div class="link-info">
                     <div class="link-title">OralSight</div>
-                    <div class="link-desc">AI oral lesion classifier &middot; MobileNetV2 &middot; Deployed on Vercel</div>
+                    <div class="link-desc">AI oral lesion classifier &middot; MobileNetV2</div>
                 </div>
-                <span class="arrow">&#8594;</span>
             </a>
-            <a href="https://github.com/visionbyangelic/Neuro-Fatigue-Prediction" class="link-card c-orange" target="_blank" rel="noopener">
+            <a href="https://github.com/visionbyangelic/Neuro-Fatigue-Prediction" class="link-card c-orange" target="_blank">
                 <div class="icon">🧠</div>
                 <div class="link-info">
                     <div class="link-title">Neuro-Fatigue Predictor</div>
-                    <div class="link-desc">1D-CNN cognitive fatigue detection from EEG &middot; FatigueSet dataset</div>
+                    <div class="link-desc">EEG-based fatigue detection using 1D-CNN</div>
                 </div>
-                <span class="arrow">&#8594;</span>
             </a>
-            <a href="https://github.com/visionbyangelic/Multimodal-Emotion-Recognition" class="link-card c-orange" target="_blank" rel="noopener">
+            <a href="https://github.com/visionbyangelic/Multimodal-Emotion-Recognition" class="link-card c-orange" target="_blank">
                 <div class="icon">🌊</div>
                 <div class="link-info">
-                    <div class="link-title">Emotiwave &mdash; Multimodal Emotion Recognition</div>
-                    <div class="link-desc">Deep learning MER system &middot; Preprint on Figshare &amp; HAL</div>
+                    <div class="link-title">Emotiwave</div>
+                    <div class="link-desc">Multimodal Emotion Recognition research</div>
                 </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-            <a href="https://github.com/visionbyangelic/computer-vision-projects" class="link-card c-orange" target="_blank" rel="noopener">
-                <div class="icon">👁️</div>
-                <div class="link-info">
-                    <div class="link-title">Computer Vision Projects</div>
-                    <div class="link-desc">ASL-to-text, face blur, motion detection &middot; OpenCV / YOLOv8</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-            <a href="https://github.com/visionbyangelic/nigerian-job-market-analyser" class="link-card c-orange" target="_blank" rel="noopener">
-                <div class="icon">🤖</div>
-                <div class="link-info">
-                    <div class="link-title">Nigerian Tech Job Market Analyser</div>
-                    <div class="link-desc">Multi-agent GenAI &middot; Azure OpenAI GPT-4o &middot; Streamlit</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-            <a href="https://huggingface.co/spaces/NerdyAlgorithm/oralscan-api" class="link-card c-orange" target="_blank" rel="noopener">
-                <div class="icon">🤗</div>
-                <div class="link-info">
-                    <div class="link-title">HuggingFace &mdash; OralScan API</div>
-                    <div class="link-desc">Gradio backend for OralSight &middot; NerdyAlgorithm/oralscan-api</div>
-                </div>
-                <span class="arrow">&#8594;</span>
             </a>
         </div>
     </section>
 
-    <!-- Featured Writing -->
     <section class="section">
-        <p class="section-label">Featured Writing</p>
+        <p class="section-label">Research As Stories</p>
         <div class="links">
-            <a href="https://medium.com/@visionbyangelic/are-you-really-one-person-what-split-brain-research-reveals-about-the-two-selves-question-a7c445f16f5b" class="link-card c-purple" target="_blank" rel="noopener">
-                <div class="icon">🧬</div>
-                <div class="link-info">
-                    <div class="link-title">Are You Really One Person? Split-Brain Research</div>
-                    <div class="link-desc">Medium &middot; Neuroscience &middot; Pinned article</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-            <a href="https://medium.com/@visionbyangelic/when-your-hand-rebels-the-neuroanatomy-and-philosophy-of-alien-hand-syndrome-7f093d817972" class="link-card c-purple" target="_blank" rel="noopener">
-                <div class="icon">✍️</div>
-                <div class="link-info">
-                    <div class="link-title">When Your Hand Rebels: Alien Hand Syndrome</div>
-                    <div class="link-desc">Medium &middot; Neuroanatomy &amp; Philosophy deep dive</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-            <a href="https://nerdyalgorithm.hashnode.dev/decision-trees-to-random-forests-learning-to-build-explainable-ai" class="link-card c-purple" target="_blank" rel="noopener">
-                <div class="icon">⚡</div>
-                <div class="link-info">
-                    <div class="link-title">Building Explainable AI: From Trees to Forests</div>
-                    <div class="link-desc">Hashnode &middot; Data Science &middot; Decision Trees &amp; Random Forests</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-            <a href="https://medium.com/@visionbyangelic/decoding-the-unconscious-how-i-built-a-deep-learning-system-to-predict-burnout-99-recall-9d5757a92641" class="link-card c-purple" target="_blank" rel="noopener">
-                <div class="icon">🔮</div>
-                <div class="link-info">
-                    <div class="link-title">Decoding the Unconscious: Predicting Burnout (99% Recall)</div>
-                    <div class="link-desc">Medium &middot; 1D-CNN on EEG &middot; Cognitive Fatigue</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-        </div>
-    </section>
-
-    <!-- All Writing -->
-    <section class="section">
-        <p class="section-label">All Writing</p>
-        <div class="links">
-            <a href="https://nerdyalgorithm.hashnode.dev" class="link-card c-blue" target="_blank" rel="noopener">
-                <div class="icon">⚡</div>
-                <div class="link-info">
-                    <div class="link-title">Hashnode &mdash; NerdyAlgorithm</div>
-                    <div class="link-desc">Technical guides &middot; Data science journey</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-            <a href="https://medium.com/@visionbyangelic" class="link-card c-blue" target="_blank" rel="noopener">
-                <div class="icon">📝</div>
-                <div class="link-info">
-                    <div class="link-title">Medium</div>
-                    <div class="link-desc">Neuroscience research &amp; computational deep dives</div>
-                </div>
-                <span class="arrow">&#8594;</span>
-            </a>
-            <a href="https://open.substack.com/pub/nerdyalgorithm" class="link-card c-blue" target="_blank" rel="noopener">
+            <a href="https://open.substack.com/pub/visionbyangelic" class="link-card c-purple" target="_blank">
                 <div class="icon">📬</div>
                 <div class="link-info">
-                    <div class="link-title">Substack &mdash; The Nerdy Algorithm</div>
-                    <div class="link-desc">Newsletter on AI, brains &amp; building in public</div>
+                    <div class="link-title">Substack &mdash; Research As Stories</div>
+                    <div class="link-desc">Complex research translated into readable narratives</div>
                 </div>
-                <span class="arrow">&#8594;</span>
+            </a>
+            <a href="https://nerdyalgorithm.hashnode.dev" class="link-card c-purple" target="_blank">
+                <div class="icon">⚡</div>
+                <div class="link-info">
+                    <div class="link-title">Hashnode &mdash; Technical Guides</div>
+                    <div class="link-desc">Deep dives into ML and Data Science</div>
+                </div>
+            </a>
+            <a href="https://medium.com/@visionbyangelic" class="link-card c-purple" target="_blank">
+                <div class="icon">📝</div>
+                <div class="link-info">
+                    <div class="link-title">Medium &mdash; Neuroscience Deep Dives</div>
+                    <div class="link-desc">Split-brain research and Neuroanatomy</div>
+                </div>
             </a>
         </div>
     </section>
 
-    <!-- Social -->
     <section class="section">
-        <p class="section-label">Social</p>
+        <p class="section-label">Connect</p>
         <div class="links">
-            <a href="https://twitter.com/visionbyangelic" class="link-card c-blue" target="_blank" rel="noopener">
-                <div class="icon">&#120143;</div>
+            <a href="https://linkedin.com/in/angeliccharles" class="link-card c-blue" target="_blank">
+                <div class="icon">💼</div>
                 <div class="link-info">
-                    <div class="link-title">X / Twitter</div>
-                    <div class="link-desc">@visionbyangelic</div>
+                    <div class="link-title">LinkedIn</div>
+                    <div class="link-desc">Professional network & experience</div>
                 </div>
-                <span class="arrow">&#8594;</span>
             </a>
-            <a href="https://bsky.app/profile/visionbyangelic.bsky.social" class="link-card c-blue" target="_blank" rel="noopener">
-                <div class="icon">🦋</div>
+            <a href="https://github.com/visionbyangelic" class="link-card c-blue" target="_blank">
+                <div class="icon">🐙</div>
                 <div class="link-info">
-                    <div class="link-title">Bluesky</div>
-                    <div class="link-desc">@visionbyangelic</div>
+                    <div class="link-title">GitHub</div>
+                    <div class="link-desc">Research code and open-source models</div>
                 </div>
-                <span class="arrow">&#8594;</span>
             </a>
             <a href="mailto:visionbyangelic@gmail.com" class="link-card c-blue">
                 <div class="icon">✉️</div>
@@ -528,16 +284,15 @@
                     <div class="link-title">Email</div>
                     <div class="link-desc">visionbyangelic@gmail.com</div>
                 </div>
-                <span class="arrow">&#8594;</span>
             </a>
         </div>
     </section>
 
     <footer class="footer">
-        <p>&copy; 2026 Angelic Charles &middot; visionbyangelic</p>
-        <p>ORCID 0009-0008-7279-9663 &middot; github.com/visionbyangelic</p>
+        <p>&copy; 2026 Angelic Charles &middot; Independent Researcher</p>
+        <p>Biochemistry &bull; Software Engineering &bull; Computational Neuroscience</p>
     </footer>
-
 </div>
+
 </body>
 </html>
