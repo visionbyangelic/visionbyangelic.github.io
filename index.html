@@ -1,0 +1,1702 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angelic Charles | Independent Researcher · Computational Neuroscience × ML</title>
+    <meta name="description" content="Independent Researcher in Computational Neuroscience & ML. Probing how intelligence emerges in brains and machines, from the ground up. Creator of EM-NAV, OralSight, and Emotiwave.">
+    <meta name="keywords" content="Angelic Charles, visionbyangelic, NerdyAlgorithm, brainfromscratch, Computational Neuroscience, Machine Learning, Spiking Neural Networks, snnTorch, EM-NAV, Representation Learning, Data Scientist, Computer Vision, OralSight, Emotiwave, Neuro-Fatigue, EEG, Multimodal AI">
+    <meta name="author" content="Angelic Charles">
+    <meta property="og:title" content="Angelic Charles | Independent Researcher · Computational Neuroscience × ML">
+    <meta property="og:description" content="Building systems that probe how intelligence emerges—biological and artificial.">
+    <meta property="og:image" content="https://github.com/visionbyangelic.png">
+    <meta property="og:url" content="https://visionbyangelic.github.io">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@visionbyangelic">
+    <link rel="canonical" href="https://visionbyangelic.github.io">
+    <link rel="icon" type="image/png" href="https://github.com/visionbyangelic.png">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=DM+Mono:wght@400;500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --bg:       #07090f;
+        --surface:  #0d1019;
+        --surface2: #131720;
+        --border:   rgba(160, 180, 255, 0.11);
+        --border-hover: rgba(160, 180, 255, 0.22);
+        --accent:   #8faeff;
+        --accent2:  #b48fff;
+        --accent3:  #52d98f;
+        --accent4:  #f5935a;
+        --pink:     #EA408D;
+        --text:     #e2e8f5;
+        --muted:    rgba(200, 212, 240, 0.55);
+        --tag-bg:   rgba(143, 174, 255, 0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        padding: 64px 24px 88px;
+        position: relative;
+        overflow-x: hidden;
+    }
+
+    /* Neural Background Canvas */
+    #neural-canvas {
+        position: fixed;
+        inset: 0;
+        z-index: 0;
+        pointer-events: none; /* Prevent blocking hover and scroll events on page links */
+    }
+
+    body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background:
+            radial-gradient(ellipse 55% 35% at 75% -5%, rgba(143, 174, 255, 0.055) 0%, transparent 65%),
+            radial-gradient(ellipse 35% 25% at 15% 90%, rgba(180, 143, 255, 0.035) 0%, transparent 55%);
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    body::after {
+        content: '';
+        position: fixed;
+        inset: 0;
+        background-image: radial-gradient(rgba(143, 174, 255, 0.04) 1px, transparent 1px);
+        background-size: 28px 28px;
+        pointer-events: none;
+        z-index: 0;
+    }
+
+    .container {
+        max-width: 560px;
+        margin: 0 auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .header {
+        text-align: center;
+        margin-bottom: 40px;
+        animation: fadeUp 0.5s ease both;
+    }
+
+    .avatar-ring {
+        position: relative;
+        display: inline-block;
+        margin-bottom: 24px;
+        cursor: pointer;
+    }
+
+    .avatar-ring::before {
+        content: '';
+        position: absolute;
+        inset: -4px;
+        border-radius: 50%;
+        background: conic-gradient(
+            var(--accent)  0deg,
+            var(--pink)    90deg,
+            var(--accent2) 180deg,
+            var(--accent3) 270deg,
+            var(--accent)  360deg
+        );
+        animation: spin 9s linear infinite;
+        z-index: -1;
+    }
+
+    .avatar-ring::after {
+        content: '';
+        position: absolute;
+        inset: -1px;
+        border-radius: 50%;
+        background: var(--bg);
+        z-index: -1;
+    }
+
+    .avatar {
+        width: 104px;
+        height: 104px;
+        border-radius: 50%;
+        display: block;
+        border: 3px solid var(--bg);
+        transition: transform 0.3s ease;
+    }
+
+    .avatar-ring:hover .avatar {
+        transform: scale(1.05);
+    }
+
+    .name {
+        font-family: 'Playfair Display', serif;
+        font-size: 2.15rem;
+        font-weight: 700;
+        letter-spacing: -0.025em;
+        color: var(--text);
+        margin-bottom: 6px;
+        line-height: 1.15;
+    }
+
+    .handle {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.72rem;
+        color: var(--pink);
+        letter-spacing: 0.12em;
+        margin-bottom: 18px;
+        opacity: 0.95;
+        font-weight: 500;
+    }
+
+    .bio {
+        font-size: 0.875rem;
+        line-height: 1.75;
+        color: var(--muted);
+        max-width: 420px;
+        margin: 0 auto 22px;
+        font-weight: 300;
+    }
+
+    .bio b { color: var(--text); font-weight: 500; }
+
+    .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    .tag {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.65rem;
+        padding: 4px 11px;
+        background: var(--tag-bg);
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        color: var(--accent);
+        letter-spacing: 0.06em;
+    }
+
+    /* Sound Control Panel in Header */
+    .sound-control-header {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        background: rgba(143, 174, 255, 0.03);
+        border: 1px solid var(--border);
+        padding: 6px 14px;
+        border-radius: 20px;
+        transition: all 0.3s ease;
+    }
+    
+    .sound-control-header:hover {
+        border-color: var(--border-hover);
+        background: rgba(143, 174, 255, 0.06);
+    }
+    
+    .sound-info {
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+        gap: 2px;
+    }
+    
+    .sound-title {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--text);
+    }
+    
+    .sound-desc {
+        font-size: 0.55rem;
+        color: var(--muted);
+    }
+    
+    .visualizer-canvas {
+        width: 40px;
+        height: 14px;
+        opacity: 0.4;
+        transition: opacity 0.3s;
+    }
+    
+    .sound-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        color: var(--text);
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+    
+    .sound-btn:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: var(--accent);
+        color: var(--accent);
+        transform: scale(1.06);
+    }
+    
+    .sound-btn.active {
+        background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+        border-color: transparent;
+        color: var(--bg);
+        box-shadow: 0 0 10px rgba(143, 174, 255, 0.4);
+    }
+
+    .divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, var(--border) 20%, var(--border) 80%, transparent);
+        margin: 36px 0;
+    }
+
+    .divider.accent {
+        background: linear-gradient(90deg, transparent, var(--pink) 20%, var(--pink) 80%, transparent);
+    }
+
+    .section {
+        margin-bottom: 36px;
+        animation: fadeUp 0.5s ease both;
+    }
+
+    .section-label {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.62rem;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent2);
+        margin-bottom: 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .section-label::after {
+        content: '';
+        height: 1px;
+        flex: 1;
+        background: linear-gradient(90deg, var(--border) 0%, transparent 100%);
+    }
+
+    .skills-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .skill-item {
+        background: var(--surface);
+        padding: 13px 14px;
+        border-radius: 10px;
+        border: 1px solid var(--border);
+        transition: border-color 0.15s, transform 0.15s;
+    }
+
+    .skill-item:hover {
+        border-color: var(--pink);
+        transform: translateY(-2px);
+    }
+
+    .skill-cat {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.58rem;
+        color: var(--pink);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        margin-bottom: 5px;
+        font-weight: 600;
+    }
+
+    .skill-val {
+        font-size: 0.8rem;
+        color: var(--text);
+        font-weight: 400;
+        line-height: 1.4;
+    }
+
+    .links { display: flex; flex-direction: column; gap: 8px; }
+
+    .link-card {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: var(--surface);
+        padding: 13px 16px;
+        border-radius: 10px;
+        text-decoration: none;
+        color: var(--text);
+        border: 1px solid var(--border);
+        transition: transform 0.18s ease, background 0.18s ease, border-color 0.18s ease;
+        position: relative;
+        overflow: hidden;
+    }
+
+    .link-card::before {
+        content: '';
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 3px;
+        background: var(--c, var(--accent));
+        border-radius: 10px 0 0 10px;
+        opacity: 0;
+        transition: opacity 0.18s;
+    }
+
+    .link-card:hover {
+        transform: translateX(4px);
+        background: var(--surface2);
+        border-color: var(--border-hover);
+    }
+
+    .link-card:hover::before { opacity: 1; }
+
+    .c-blue   { --c: var(--accent);  }
+    .c-purple { --c: var(--pink); }
+    .c-green  { --c: var(--accent3); }
+    .c-orange { --c: var(--accent4); }
+    .c-teal   { --c: #3ecfcf; }
+
+    .icon {
+        width: 38px;
+        height: 38px;
+        min-width: 38px;
+        border-radius: 8px;
+        background: var(--tag-bg);
+        border: 1px solid var(--border);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
+    }
+
+    .link-info { flex: 1; min-width: 0; }
+
+    .link-title {
+        font-size: 0.875rem;
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        color: var(--text);
+    }
+
+    .link-desc {
+        font-size: 0.72rem;
+        color: var(--muted);
+        margin-top: 2px;
+        line-height: 1.45;
+    }
+
+    /* Status badges */
+    .badge {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.55rem;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        padding: 2px 7px;
+        border-radius: 20px;
+        background: rgba(82, 217, 143, 0.1);
+        border: 1px solid rgba(82, 217, 143, 0.25);
+        color: var(--accent3);
+        white-space: nowrap;
+        flex-shrink: 0;
+    }
+
+    .badge.upcoming {
+        background: rgba(143, 174, 255, 0.1);
+        border-color: rgba(143, 174, 255, 0.25);
+        color: var(--accent);
+    }
+
+    .arrow {
+        color: var(--muted);
+        font-size: 0.85rem;
+        flex-shrink: 0;
+        transition: color 0.15s, transform 0.15s;
+        margin-left: 4px;
+    }
+
+    .link-card:hover .arrow {
+        color: var(--pink);
+        transform: translateX(2px);
+    }
+
+    /* 🧪 LIF Simulator Card styling - matching design guidelines */
+    .lif-simulator-card {
+        background: var(--surface);
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid var(--border);
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        transition: border-color 0.15s;
+    }
+    
+    .lif-simulator-card:hover {
+        border-color: var(--border-hover);
+    }
+    
+    .lif-desc {
+        font-size: 0.78rem;
+        color: var(--muted);
+        line-height: 1.55;
+    }
+    
+    .lif-simulator-layout {
+        display: grid;
+        grid-template-columns: 170px 1fr;
+        gap: 20px;
+    }
+    
+    .lif-controls {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        justify-content: center;
+    }
+    
+    .control-group {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+    
+    .control-label {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.65rem;
+        color: var(--muted);
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .control-slider {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 4px;
+        border-radius: 2px;
+        background: rgba(255, 255, 255, 0.08);
+        outline: none;
+    }
+    
+    .control-slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--accent);
+        cursor: pointer;
+        box-shadow: 0 0 6px var(--accent);
+        transition: transform 0.1s;
+    }
+    
+    .control-slider::-webkit-slider-thumb:hover {
+        transform: scale(1.25);
+    }
+    
+    .lif-visualization {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+    }
+    
+    .lif-diagram-container {
+        height: 64px;
+        background: rgba(255, 255, 255, 0.01);
+        border: 1px solid rgba(255, 255, 255, 0.03);
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+    }
+    
+    .lif-neuron-svg {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .oscilloscope-canvas {
+        width: 100%;
+        height: 110px;
+        background: #04060b;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        touch-action: none; /* Prevents scroll interference on mobile screen swipe */
+    }
+
+    .footer {
+        text-align: center;
+        margin-top: 52px;
+        padding-top: 24px;
+        border-top: 1px solid var(--border);
+        font-family: 'DM Mono', monospace;
+        font-size: 0.68rem;
+        color: var(--muted);
+        letter-spacing: 0.05em;
+        line-height: 2;
+        animation: fadeUp 0.5s 0.5s ease both;
+    }
+
+    .secret-hint {
+        font-family: 'DM Mono', monospace;
+        font-size: 0.58rem;
+        color: var(--muted);
+        opacity: 0.55;
+        margin-top: 10px;
+        text-align: center;
+    }
+
+    @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(16px); }
+        to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* Mobile responsiveness tweaks for layout and lab */
+    @media (max-width: 580px) {
+        .lif-simulator-layout {
+            grid-template-columns: 1fr;
+            gap: 16px;
+        }
+        .lif-controls {
+            order: 2;
+        }
+        .lif-visualization {
+            order: 1;
+        }
+    }
+
+    @media (max-width: 480px) {
+        body { padding: 48px 16px 72px; }
+        .skills-grid { grid-template-columns: 1fr; }
+        .name { font-size: 1.85rem; }
+        .link-title { font-size: 0.82rem; }
+    }
+</style>
+</head>
+<body>
+    
+    <!-- Background Canvas for Neural connections -->
+    <canvas id="neural-canvas"></canvas>
+
+    <div class="container">
+        
+        <!-- Header -->
+        <div class="header">
+            <div class="avatar-ring" id="avatar-egg">
+                <img src="https://github.com/visionbyangelic.png" alt="Angelic Charles" class="avatar">
+            </div>
+            <h1 class="name">Angelic Charles</h1>
+            <div class="handle">@visionbyangelic · NerdyAlgorithm</div>
+            <p class="bio">
+                <b>Computational Neuroscience · ML</b><br>
+                Probing how intelligence emerges in brains and machines—from the ground up. 🧠
+            </p>
+            <div class="tags">
+                <span class="tag">B.Sc. Biochemistry</span>
+                <span class="tag">B.Sc. Software Engineering (Ongoing)</span>
+                <span class="tag">Future MSc Comp-Neuro</span>
+            </div>
+            
+            <!-- Auditory Soundscape Control -->
+            <div class="sound-control-header">
+                <div class="sound-info">
+                    <span class="sound-title">Synaptic Soundscape</span>
+                    <span class="sound-desc">Hover background to play</span>
+                </div>
+                <canvas id="audio-visualizer" class="visualizer-canvas"></canvas>
+                <button class="sound-btn" id="sound-toggle-btn" aria-label="Toggle Sound">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-waves" style="opacity: 0.3;"></path>
+                    </svg>
+                </button>
+            </div>
+            <div class="secret-hint">Hint: Double-click avatar for brain activity.</div>
+        </div>
+
+    <div class="divider accent"></div>
+
+    <!-- Ongoing Research -->
+    <section class="section">
+        <div class="section-label">Ongoing Research</div>
+        <a href="https://github.com/visionbyangelic/em-nav-representation-geometry" class="link-card c-purple" target="_blank" rel="noopener" style="flex-direction: column; align-items: stretch; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="icon">🔬</div>
+                <div class="link-info" style="flex: 1; min-width: 0;">
+                    <div class="link-title" style="white-space: normal; line-height: 1.35; font-weight: 600; font-size: 0.875rem;">EM-NAV: Geometry & Transferability of Spatial Representations</div>
+                    <div class="link-desc" style="color: var(--accent2); font-family: 'DM Mono', monospace; font-size: 0.62rem; margin-top: 4px;">
+                        License: GPL v3 · GitHub Repo
+                    </div>
+                </div>
+                <span class="arrow" style="align-self: center;">→</span>
+            </div>
+            
+            <!-- Research Abstract -->
+            <div style="margin-top: 4px; font-size: 0.78rem; line-height: 1.5; color: var(--text); opacity: 0.95;">
+                Computational neuroscience research study investigating how population sparsity, spiking thresholds, and network recurrence shape the geometric layout, linear decodability, and zero-shot transfer stability of emergent spatial manifolds learned from egocentric sensory data.
+            </div>
+
+            <!-- Non-Technical translation -->
+            <div style="background: rgba(143, 174, 255, 0.03); border: 1px solid rgba(160, 180, 255, 0.08); padding: 8px 12px; border-radius: 6px; margin-top: 2px;">
+                <span style="font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--accent3); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 3px;">Layperson Translation:</span>
+                <span style="font-size: 0.74rem; color: var(--muted); line-height: 1.45; display: block;">
+                    We are testing if forcing artificial intelligence to obey the same biological constraints as the human brain (like using spikes of electricity and very little energy) forces the AI to build a "mental map" of its world, just like we do.
+                </span>
+            </div>
+
+            <!-- Research Stack -->
+            <div style="border-top: 1px solid rgba(160, 180, 255, 0.08); padding-top: 8px; display: flex; flex-direction: column; gap: 4px;">
+                <span style="font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--pink); text-transform: uppercase; font-weight: 600; display: block;">Research Stack:</span>
+                <span style="font-size: 0.74rem; color: var(--text); font-family: 'DM Mono', monospace; opacity: 0.85;">
+                    Python 3.10+ · snnTorch · PyTorch · Blender 3D · MiniGrid · PPO
+                </span>
+            </div>
+        </a>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Technical Stack -->
+    <section class="section">
+        <div class="section-label">Technical Stack</div>
+        <div class="skills-grid">
+            <div class="skill-item">
+                <div class="skill-cat">Neuro & ML</div>
+                <div class="skill-val">PyTorch, snnTorch, TensorFlow, MNE, Scikit-Learn</div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-cat">Vision</div>
+                <div class="skill-val">OpenCV, YOLOv8, MediaPipe, Image Segmentation</div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-cat">Languages</div>
+                <div class="skill-val">Python, SQL, JavaScript, Java</div>
+            </div>
+            <div class="skill-item">
+                <div class="skill-cat">Creative</div>
+                <div class="skill-val">Blender, Arduino, Raspberry Pi</div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider accent"></div>
+
+    <!-- Leaky Integrate-and-Fire Model -->
+    <section class="section" style="display: none;">
+        <div class="section-label">Interactive LIF Simulator</div>
+        <div class="lif-simulator-card">
+            <div class="lif-desc">
+                Simulate biological membrane dynamics in real-time. Boost the input current ($I_e$) to force the neuron past the threshold value ($V_{thresh} = -50\text{mV}$) and trigger spiking action potentials.
+            </div>
+            <div class="lif-simulator-layout">
+                <div class="lif-controls">
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Current (Ie)</span>
+                            <span id="val-ie">15.0</span>
+                        </div>
+                        <input type="range" class="control-slider" id="slider-ie" min="0" max="50" step="0.5" value="15.0">
+                    </div>
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Resistance (Rm)</span>
+                            <span id="val-rm">10.0</span>
+                        </div>
+                        <input type="range" class="control-slider" id="slider-rm" min="1" max="20" step="0.5" value="10.0">
+                    </div>
+                    <div class="control-group">
+                        <div class="control-label">
+                            <span>Noise Level</span>
+                            <span id="val-noise">2.0</span>
+                        </div>
+                        <input type="range" class="control-slider" id="slider-noise" min="0" max="10" step="0.2" value="2.0">
+                    </div>
+                </div>
+                
+                <div class="lif-visualization">
+                    <div class="lif-diagram-container">
+                        <svg class="lif-neuron-svg" viewBox="0 0 400 80">
+                            <!-- Soma -->
+                            <circle cx="100" cy="40" r="16" fill="rgba(143, 174, 255, 0.08)" stroke="var(--accent)" stroke-width="2" id="neuron-soma"></circle>
+                            <!-- Dendrites -->
+                            <path d="M60 25 L85 35 M55 40 L84 40 M60 55 L85 45" stroke="var(--accent2)" stroke-width="1.5" stroke-linecap="round"></path>
+                            <!-- Axon -->
+                            <path d="M116 40 L280 40" stroke="var(--accent2)" stroke-width="2" id="neuron-axon" stroke-dasharray="8 4" stroke-dashoffset="0"></path>
+                            <!-- Synaptic Terminals -->
+                            <path d="M280 40 L310 25 M280 40 L320 40 M280 40 L310 55" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"></path>
+                            <!-- Spike Wave -->
+                            <circle cx="116" cy="40" r="5" fill="#fff" opacity="0" id="axon-signal"></circle>
+                            <!-- Labels -->
+                            <text x="100" y="44" font-family="Inter" font-size="9" fill="#fff" text-anchor="middle" font-weight="600">SOMA</text>
+                            <text x="190" y="32" font-family="DM Mono" font-size="8" fill="var(--muted)" text-anchor="middle">AXON (Spike Propagation)</text>
+                            <text x="325" y="43" font-family="Inter" font-size="9" fill="var(--accent)">SYNAPSE</text>
+                        </svg>
+                    </div>
+                    <canvas class="oscilloscope-canvas" id="lif-canvas"></canvas>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider accent"></div>
+
+    <!-- Professional -->
+    <section class="section">
+        <div class="section-label">Professional</div>
+        <div class="links">
+            <a href="https://linkedin.com/in/visionbyangelic" class="link-card c-blue" target="_blank" rel="noopener">
+                <div class="icon">💼</div>
+                <div class="link-info">
+                    <div class="link-title">LinkedIn</div>
+                    <div class="link-desc">Professional profile & experience</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://github.com/visionbyangelic" class="link-card c-blue" target="_blank" rel="noopener">
+                <div class="icon">🐙</div>
+                <div class="link-info">
+                    <div class="link-title">GitHub — visionbyangelic</div>
+                    <div class="link-desc">20 repositories · Open-source ML & CV work</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://kaggle.com/nerdyalgorithm" class="link-card c-blue" target="_blank" rel="noopener">
+                <div class="icon">📊</div>
+                <div class="link-info">
+                    <div class="link-title">Kaggle — NerdyAlgorithm</div>
+                    <div class="link-desc">Datasets, notebooks & competitions</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Research & Publications -->
+    <section class="section">
+        <div class="section-label">Research & Publications</div>
+        <div class="links">
+            <a href="https://orcid.org/0009-0008-7279-9663" class="link-card c-green" target="_blank" rel="noopener">
+                <div class="icon">🔬</div>
+                <div class="link-info">
+                    <div class="link-title">ORCID</div>
+                    <div class="link-desc">Research identity · 0009-0008-7279-9663</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://figshare.com/articles/preprint/Emotiwave_Multimodal_Emotion_Recognition_using_Deep_Learning_EEG_and_Facial_Expressions/31567024" class="link-card c-green" target="_blank" rel="noopener">
+                <div class="icon">📄</div>
+                <div class="link-info">
+                    <div class="link-title">Figshare — Emotiwave Preprint</div>
+                    <div class="link-desc">Multimodal emotion recognition · DOI: 10.6084/m9.figshare.31567024</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://www.academia.edu/164959458/THE_EFFECT_OF_THE_COMBINED_EXTRACT_OF_SELECTED_SPICES_ON_CASODEX_INDUCED_CARDIAC_HYPERTROPHY_IN_MALE_ALBINO_RAT?source=swp_share" class="link-card c-green" target="_blank" rel="noopener">
+                <div class="icon">🎓</div>
+                <div class="link-info">
+                    <div class="link-title">Academia.edu</div>
+                    <div class="link-desc">Undergraduate biochemistry thesis</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Affiliations & Community -->
+    <section class="section">
+        <div class="section-label">Affiliations & Community</div>
+        <div class="links">
+            <a href="https://neuromatch.io/computational-neuroscience-course" class="link-card c-teal" target="_blank" rel="noopener">
+                <div class="icon">🧠</div>
+                <div class="link-info">
+                    <div class="link-title">Neuromatch Academy</div>
+                    <div class="link-desc">Computational Neuroscience · Interactive Track </div>
+                </div>
+                <span class="badge">Active</span>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://www.winng.org.ng/" class="link-card c-teal" target="_blank" rel="noopener">
+                <div class="icon">🌍</div>
+                <div class="link-info">
+                    <div class="link-title">Women in Neuroscience Nigeria</div>
+                    <div class="link-desc">Virtual Coordinator · Community & outreach</div>
+                </div>
+                <span class="badge">Active</span>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://t.me/neuroscienceresources" class="link-card c-teal" target="_blank" rel="noopener">
+                <div class="icon">📚</div>
+                <div class="link-info">
+                    <div class="link-title">Neuroscience Resource Hub</div>
+                    <div class="link-desc">Curated Telegram repository for academic literature, datasets, and research materials.</div>
+                </div>
+                <span class="badge">Curator</span>
+                <span class="arrow">→</span>
+            </a>
+
+            <a href="https://cohere.com/research/cohere-for-ai" class="link-card c-teal" target="_blank" rel="noopener">
+                <div class="icon">⚛️</div>
+                <div class="link-info">
+                    <div class="link-title">Cohere For AI</div>
+                    <div class="link-desc">C4AI Community Member · BIRDS Program Member · ML Interpretability & Sparse Autoencoder research</div>
+                </div>
+                <span class="badge">Active</span>
+                <span class="arrow">→</span>
+            </a>
+            <div class="link-card c-teal">
+                <div class="icon">🏛️</div>
+                <div class="link-info">
+                    <div class="link-title">American Psychological Association (APA)</div>
+                    <div class="link-desc">International Affiliate Member · Tracking cognitive & behavioral neuroscience</div>
+                </div>
+                <span class="badge">Member</span>
+            </div>
+            <div class="link-card c-teal">
+                <div class="icon">🏥</div>
+                <div class="link-info">
+                    <div class="link-title">CAMERA MRI Africa · SPARK Academy Fellow</div>
+                    <div class="link-desc">AI in Medical Imaging · Collaborating with McGill University & mailab.io on diagnostic tools.</div>
+                </div>
+                <span class="badge">Fellowship</span>
+            </div>
+
+            <div class="link-card c-purple">
+                <div class="icon">🏆</div>
+                <div class="link-info">
+                    <div class="link-title">DataraFlow · Data Science Valedictorian</div>
+                    <div class="link-desc">Ranked 1st of 365 participants  · Led the "Data Raiders" Research Collective.</div>
+                </div>
+                <span class="badge">Honor</span>
+            </div>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Featured Projects -->
+    <section class="section">
+        <div class="section-label">Featured Projects</div>
+        <div class="links">
+            <a href="https://github.com/visionbyangelic/embodied-morphological-navigation" class="link-card c-orange" target="_blank" rel="noopener">
+                <div class="icon">🚀</div>
+                <div class="link-info">
+                    <div class="link-title">Embodied Morphological Navigation</div>
+                    <div class="link-desc">SNN agent in 3D Blender environments studying emergent spatial representations.</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://github.com/visionbyangelic/Oral-Sight-V1" class="link-card c-orange" target="_blank" rel="noopener">
+                <div class="icon">🦷</div>
+                <div class="link-info">
+                    <div class="link-title">OralSight</div>
+                    <div class="link-desc">AI oral lesion classifier · MobileNetV2 · Deployed on Vercel</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://github.com/visionbyangelic/Neuro-Fatigue-Predictor" class="link-card c-orange" target="_blank" rel="noopener">
+                <div class="icon">🧠</div>
+                <div class="link-info">
+                    <div class="link-title">Neuro-Fatigue Predictor</div>
+                    <div class="link-desc">1D-CNN cognitive fatigue detection from EEG · FatigueSet dataset</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://github.com/visionbyangelic/Multimodal-Emotion-Recognition" class="link-card c-orange" target="_blank" rel="noopener">
+                <div class="icon">🌊</div>
+                <div class="link-info">
+                    <div class="link-title">Emotiwave — Multimodal Emotion Recognition</div>
+                    <div class="link-desc">Deep learning MER system · Preprint on Figshare & HAL</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://github.com/visionbyangelic/Computer-Vision-Projects" class="link-card c-orange" target="_blank" rel="noopener">
+                <div class="icon">👁️</div>
+                <div class="link-info">
+                    <div class="link-title">Computer Vision Projects</div>
+                    <div class="link-desc">ASL-to-text, hand tracking, and motion detection using MediaPipe & YOLOv8.</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://github.com/visionbyangelic/Nigerian-Tech-Job-Market-Analyser" class="link-card c-orange" target="_blank" rel="noopener">
+                <div class="icon">🤖</div>
+                <div class="link-info">
+                    <div class="link-title">Nigerian Tech Job Market Analyser</div>
+                    <div class="link-desc">Multi-agent GenAI · Azure OpenAI GPT-4o · Streamlit</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://huggingface.co/spaces/NerdyAlgorithm/OralScan-API" class="link-card c-orange" target="_blank" rel="noopener">
+                <div class="icon">🤗</div>
+                <div class="link-info">
+                    <div class="link-title">HuggingFace — OralScan API</div>
+                    <div class="link-desc">Gradio backend for OralSight · NerdyAlgorithm/oralscan-api</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Featured Writing -->
+    <section class="section">
+        <div class="section-label">Featured Writing</div>
+        <div class="links">
+            <a href="https://medium.com/@visionbyangelic/are-you-really-one-person-what-split-brain-research-reveals-about-the-two-selves-question-a7c445f16f5b" class="link-card c-purple" target="_blank" rel="noopener">
+                <div class="icon">🧬</div>
+                <div class="link-info">
+                    <div class="link-title">Are You Really One Person? Split-Brain Research</div>
+                    <div class="link-desc">Medium · Neuroscience · Pinned article</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://open.substack.com/pub/visionbyangelic/p/the-name-that-turned-the-lights-on?utm_campaign=post-expanded-share&utm_medium=post%20viewer" class="link-card c-purple" target="_blank" rel="noopener">
+                <div class="icon">📬</div>
+                <div class="link-info">
+                    <div class="link-title">The Name That Turned the Lights On</div>
+                    <div class="link-desc">Substack · The foundational philosophy of translating complex science into narrative form.</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://medium.com/@visionbyangelic/when-your-hand-rebels-the-neuroanatomy-and-philosophy-of-alien-hand-syndrome-7f093d817972" class="link-card c-purple" target="_blank" rel="noopener">
+                <div class="icon">✍️</div>
+                <div class="link-info">
+                    <div class="link-title">When Your Hand Rebels: Alien Hand Syndrome</div>
+                    <div class="link-desc">Medium · Neuroanatomy & Philosophy deep dive</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://nerdyalgorithm.hashnode.dev/building-explainable-ai-from-trees-to-forests" class="link-card c-purple" target="_blank" rel="noopener">
+                <div class="icon">⚡</div>
+                <div class="link-info">
+                    <div class="link-title">Building Explainable AI: From Trees to Forests</div>
+                    <div class="link-desc">Hashnode · Data Science · Decision Trees & Random Forests</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://medium.com/@visionbyangelic/decoding-the-unconscious-how-i-built-a-deep-learning-system-to-predict-burnout-99-recall-9d5757a92641" class="link-card c-purple" target="_blank" rel="noopener">
+                <div class="icon">🔮</div>
+                <div class="link-info">
+                    <div class="link-title">Decoding the Unconscious: Predicting Burnout (99% Recall)</div>
+                    <div class="link-desc">Medium · 1D-CNN on EEG · Cognitive Fatigue</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- All Writing -->
+    <section class="section">
+        <div class="section-label">All Writing</div>
+        <div class="links">
+            <a href="https://nerdyalgorithm.hashnode.dev" class="link-card c-blue" target="_blank" rel="noopener">
+                <div class="icon">⚡</div>
+                <div class="link-info">
+                    <div class="link-title">Hashnode — NerdyAlgorithm</div>
+                    <div class="link-desc">Technical guides · Data science journey</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://medium.com/@visionbyangelic" class="link-card c-blue" target="_blank" rel="noopener">
+                <div class="icon">📝</div>
+                <div class="link-info">
+                    <div class="link-title">Medium</div>
+                    <div class="link-desc">Neuroscience research & computational deep dives</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://researchasstories.substack.com" class="link-card c-blue" target="_blank" rel="noopener">
+                <div class="icon">📬</div>
+                <div class="link-info">
+                    <div class="link-title">Substack — Research As Stories</div>
+                    <div class="link-desc">Dense academic research translated into stories you actually want to read.</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://substack.com/@visionbyangelic" class="link-card c-blue" target="_blank" rel="noopener">
+                <div class="icon">📬</div>
+                <div class="link-info">
+                    <div class="link-title">Substack — visionbyangelic</div>
+                    <div class="link-desc">Metaphysics, psychology, philosophy, and original thoughts. Architecture of the mind & my search for meaning.</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Social -->
+    <section class="section">
+        <div class="section-label">Social</div>
+        <div class="links">
+            <a href="https://twitter.com/visionbyangelic" class="link-card c-blue" target="_blank" rel="noopener">
+                <div class="icon">𝕏</div>
+                <div class="link-info">
+                    <div class="link-title">X / Twitter</div>
+                    <div class="link-desc">@visionbyangelic</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://pin.it/5TfwclnT4" class="link-card c-blue" target="_blank" rel="noopener">
+                <div class="icon">🎯</div>
+                <div class="link-info">
+                    <div class="link-title">Pinterest</div>
+                    <div class="link-desc">@visionbyangelic</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+
+            <a href="https://bsky.app/profile/visionbyangelic.bsky.social" class="link-card c-blue" target="_blank" rel="noopener">
+                <div class="icon">🦋</div>
+                <div class="link-info">
+                    <div class="link-title">Bluesky</div>
+                    <div class="link-desc">@visionbyangelic</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="https://angelic-space.vercel.app" class="link-card c-blue" target="_blank" rel="noopener">
+                <div class="icon">💬</div>
+                <div class="link-info">
+                    <div class="link-title">Notes & Questions</div>
+                    <div class="link-desc">Leave a note or ask me a question in my personal space</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+            <a href="mailto:visionbyangelic@gmail.com" class="link-card c-blue">
+                <div class="icon">✉️</div>
+                <div class="link-info">
+                    <div class="link-title">Email</div>
+                    <div class="link-desc">visionbyangelic@gmail.com</div>
+                </div>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div class="footer">
+        <p>© 2026 Angelic Charles · visionbyangelic</p>
+        <p>ORCID 0009-0008-7279-9663 · github.com/visionbyangelic</p>
+    </div>
+</div>
+
+<!-- Scripts Block -->
+<script>
+    // -------------------------------------------------------------
+    // AUDIO SYNTHESIS & VISUALIZER (Web Audio API)
+    // -------------------------------------------------------------
+    let audioCtx = null;
+    let analyser = null;
+    let audioEnabled = false;
+    let visualizerInterval = null;
+
+    const soundToggleBtn = document.getElementById('sound-toggle-btn');
+    const soundWaves = document.querySelector('.sound-waves');
+    const visualizerCanvas = document.getElementById('audio-visualizer');
+    const visCtx = visualizerCanvas.getContext('2d');
+
+    // Harmonious Pentatonic Scale (C Major)
+    const PENTATONIC_SCALE = [
+        261.63, // C4
+        293.66, // D4
+        329.63, // E4
+        392.00, // G4
+        440.00, // A4
+        523.25, // C5
+        587.33, // D5
+        659.25, // E5
+        783.99, // G5
+        880.00  // A5
+    ];
+
+    function initAudio() {
+        if (audioCtx) return;
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioContext();
+        analyser = audioCtx.createAnalyser();
+        analyser.fftSize = 32;
+        analyser.connect(audioCtx.destination);
+        
+        // Adjust canvas resolution for high-DPI displays
+        const dpr = window.devicePixelRatio || 1;
+        visualizerCanvas.width = 40 * dpr;
+        visualizerCanvas.height = 14 * dpr;
+        visCtx.scale(dpr, dpr);
+    }
+
+    function playSynthPluck(freq, duration = 0.8) {
+        if (!audioEnabled) return;
+        initAudio();
+        
+        if (audioCtx.state === 'suspended') {
+            audioCtx.resume();
+        }
+
+        const osc = audioCtx.createOscillator();
+        const gainNode = audioCtx.createGain();
+
+        osc.connect(gainNode);
+        gainNode.connect(analyser); // pipeline output to the visualizer
+
+        // Triangle oscillator provides a soft, organic pluck
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
+
+        // Amplitude Envelope (ADSR)
+        gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.015);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
+
+        osc.start(audioCtx.currentTime);
+        osc.stop(audioCtx.currentTime + duration + 0.05);
+    }
+
+    function playRandomPluck() {
+        const randomNoteIndex = Math.floor(Math.random() * PENTATONIC_SCALE.length);
+        const freq = PENTATONIC_SCALE[randomNoteIndex];
+        playSynthPluck(freq);
+    }
+
+    soundToggleBtn.addEventListener('click', () => {
+        audioEnabled = !audioEnabled;
+        if (audioEnabled) {
+            initAudio();
+            soundToggleBtn.classList.add('active');
+            soundWaves.style.opacity = '1';
+            startVisualizer();
+            // Intro chord
+            setTimeout(() => playSynthPluck(261.63, 1.2), 0);
+            setTimeout(() => playSynthPluck(329.63, 1.2), 100);
+            setTimeout(() => playSynthPluck(392.00, 1.2), 200);
+            setTimeout(() => playSynthPluck(523.25, 1.5), 300);
+        } else {
+            soundToggleBtn.classList.remove('active');
+            soundWaves.style.opacity = '0.3';
+            stopVisualizer();
+        }
+    });
+
+    function startVisualizer() {
+        if (visualizerInterval) cancelAnimationFrame(visualizerInterval);
+        
+        function render() {
+            if (!audioEnabled) return;
+            visualizerInterval = requestAnimationFrame(render);
+            
+            const bufferLength = analyser.frequencyBinCount;
+            const dataArray = new Uint8Array(bufferLength);
+            analyser.getByteFrequencyData(dataArray);
+
+            const width = 40;
+            const height = 14;
+            visCtx.clearRect(0, 0, width, height);
+
+            const barWidth = (width / bufferLength) * 1.5;
+            let barHeight;
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+                barHeight = (dataArray[i] / 255) * height * 0.8;
+                visCtx.fillStyle = `rgba(143, 174, 255, ${0.3 + (dataArray[i] / 255) * 0.7})`;
+                visCtx.fillRect(x, height - barHeight, barWidth - 1, barHeight);
+                x += barWidth;
+            }
+        }
+        render();
+    }
+
+    function stopVisualizer() {
+        if (visualizerInterval) {
+            cancelAnimationFrame(visualizerInterval);
+            visualizerInterval = null;
+        }
+        visCtx.clearRect(0, 0, 40, 14);
+    }
+
+    // -------------------------------------------------------------
+    // NEURAL BACKGROUND INTERACTIVE CANVAS
+    // -------------------------------------------------------------
+    const neuralCanvas = document.getElementById('neural-canvas');
+    const nCtx = neuralCanvas.getContext('2d');
+    
+    let nodes = [];
+    let pulses = [];
+    const maxNodes = 50;
+    const connectionDistance = 110;
+    let mouseNode = { x: null, y: null };
+    let isBrainStorm = false;
+    let brainStormTimer = 0;
+
+    function resizeCanvas() {
+        neuralCanvas.width = window.innerWidth;
+        neuralCanvas.height = window.innerHeight;
+        initNeuralNetwork();
+    }
+
+    window.addEventListener('resize', resizeCanvas);
+
+    class NeuronNode {
+        constructor(x, y) {
+            this.x = x;
+            this.y = y;
+            this.vx = (Math.random() - 0.5) * 0.4;
+            this.vy = (Math.random() - 0.5) * 0.4;
+            this.baseRadius = Math.random() * 1.5 + 1.2;
+            this.radius = this.baseRadius;
+            this.charge = 0;
+            this.decay = 0.018;
+            this.cooldown = 0;
+        }
+
+        update() {
+            this.x += this.vx;
+            this.y += this.vy;
+
+            if (this.x < 0 || this.x > neuralCanvas.width) this.vx *= -1;
+            if (this.y < 0 || this.y > neuralCanvas.height) this.vy *= -1;
+
+            if (this.charge > 0) this.charge -= this.decay;
+            else this.charge = 0;
+
+            if (this.cooldown > 0) this.cooldown--;
+
+            if (isBrainStorm) {
+                this.charge = Math.min(1, this.charge + 0.05);
+                this.x += (Math.random() - 0.5) * 2;
+                this.y += (Math.random() - 0.5) * 2;
+            }
+
+            this.radius = this.baseRadius + this.charge * 4.0;
+        }
+
+        draw() {
+            nCtx.beginPath();
+            nCtx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+            
+            if (isBrainStorm) {
+                nCtx.fillStyle = `hsla(${(Date.now() / 20) % 360}, 100%, 70%, 0.85)`;
+            } else if (this.charge > 0.1) {
+                nCtx.fillStyle = `rgba(143, 174, 255, ${0.4 + this.charge * 0.6})`;
+                nCtx.shadowColor = 'rgba(143, 174, 255, 0.8)';
+                nCtx.shadowBlur = 8 * this.charge;
+            } else {
+                nCtx.fillStyle = 'rgba(143, 174, 255, 0.22)';
+            }
+            
+            nCtx.fill();
+            nCtx.shadowBlur = 0;
+        }
+
+        stimulate(amount) {
+            if (this.cooldown > 0) return;
+            this.charge = Math.min(1, this.charge + amount);
+            if (this.charge >= 0.95 && this.cooldown === 0) {
+                this.fire();
+            }
+        }
+
+        fire() {
+            this.cooldown = 40;
+            this.charge = 1.0;
+            
+            if (audioEnabled && mouseNode.x !== null) {
+                const distToMouse = Math.hypot(this.x - mouseNode.x, this.y - mouseNode.y);
+                if (distToMouse < 220) {
+                    playRandomPluck();
+                }
+            }
+
+            nodes.forEach(other => {
+                if (other === this) return;
+                const dist = Math.hypot(this.x - other.x, this.y - other.y);
+                if (dist < connectionDistance) {
+                    pulses.push({
+                        from: this,
+                        to: other,
+                        progress: 0,
+                        speed: Math.random() * 0.035 + 0.02
+                    });
+                }
+            });
+        }
+    }
+
+    function initNeuralNetwork() {
+        nodes = [];
+        pulses = [];
+        // Scale node count by screen resolution for mobile performance
+        const count = Math.min(maxNodes, Math.floor((neuralCanvas.width * neuralCanvas.height) / 22000));
+        for (let i = 0; i < count; i++) {
+            nodes.push(new NeuronNode(Math.random() * neuralCanvas.width, Math.random() * neuralCanvas.height));
+        }
+    }
+
+    // Capture background mouse coordinates (since pointer-events is none on canvas)
+    window.addEventListener('mousemove', (e) => {
+        mouseNode.x = e.clientX;
+        mouseNode.y = e.clientY;
+    });
+
+    window.addEventListener('touchmove', (e) => {
+        if (e.touches.length > 0) {
+            mouseNode.x = e.touches[0].clientX;
+            mouseNode.y = e.touches[0].clientY;
+        }
+    });
+
+    window.addEventListener('touchend', () => {
+        mouseNode.x = null;
+        mouseNode.y = null;
+    });
+
+    window.addEventListener('mouseout', () => {
+        mouseNode.x = null;
+        mouseNode.y = null;
+    });
+
+    // Capture clicks to trigger background spikes (ignoring UI buttons/links)
+    window.addEventListener('click', (e) => {
+        if (e.target.closest('a, button, input, label, .lif-simulator-card')) return;
+        nodes.forEach(node => {
+            const dist = Math.hypot(node.x - e.clientX, node.y - e.clientY);
+            if (dist < 160) {
+                node.stimulate(0.6);
+            }
+        });
+    });
+
+    function updateAndDrawNeuralBackground() {
+        nCtx.clearRect(0, 0, neuralCanvas.width, neuralCanvas.height);
+        
+        if (isBrainStorm) {
+            brainStormTimer--;
+            if (brainStormTimer <= 0) isBrainStorm = false;
+        }
+
+        // Draw connections
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                const n1 = nodes[i];
+                const n2 = nodes[j];
+                const dist = Math.hypot(n1.x - n2.x, n1.y - n2.y);
+                
+                if (dist < connectionDistance) {
+                    const alpha = (1 - (dist / connectionDistance)) * 0.16;
+                    nCtx.beginPath();
+                    nCtx.moveTo(n1.x, n1.y);
+                    nCtx.lineTo(n2.x, n2.y);
+                    
+                    if (isBrainStorm) {
+                        nCtx.strokeStyle = `hsla(${(Date.now() / 15 + dist) % 360}, 100%, 70%, ${alpha * 2})`;
+                    } else if (n1.charge > 0.3 || n2.charge > 0.3) {
+                        const activeAlpha = alpha + Math.max(n1.charge, n2.charge) * 0.15;
+                        nCtx.strokeStyle = `rgba(143, 174, 255, ${activeAlpha})`;
+                    } else {
+                        nCtx.strokeStyle = `rgba(143, 174, 255, ${alpha})`;
+                    }
+                    
+                    nCtx.lineWidth = 0.8;
+                    nCtx.stroke();
+                }
+            }
+        }
+
+        // Draw pulses (Action Potentials)
+        for (let i = pulses.length - 1; i >= 0; i--) {
+            const p = pulses[i];
+            p.progress += p.speed;
+            
+            if (p.progress >= 1.0) {
+                p.to.stimulate(0.32);
+                pulses.splice(i, 1);
+                continue;
+            }
+
+            const px = p.from.x + (p.to.x - p.from.x) * p.progress;
+            const py = p.from.y + (p.to.y - p.from.y) * p.progress;
+
+            nCtx.beginPath();
+            nCtx.arc(px, py, 1.8, 0, Math.PI * 2);
+            if (isBrainStorm) {
+                nCtx.fillStyle = '#fff';
+            } else {
+                nCtx.fillStyle = 'rgba(143, 174, 255, 0.95)';
+                nCtx.shadowColor = 'rgba(143, 174, 255, 1)';
+                nCtx.shadowBlur = 4;
+            }
+            nCtx.fill();
+            nCtx.shadowBlur = 0;
+        }
+
+        // Update Nodes
+        nodes.forEach(node => {
+            node.update();
+            
+            if (mouseNode.x !== null) {
+                const dist = Math.hypot(node.x - mouseNode.x, node.y - mouseNode.y);
+                if (dist < 100) {
+                    const stim = (1 - (dist / 100)) * 0.024;
+                    node.stimulate(stim);
+                }
+            }
+
+            node.draw();
+        });
+
+        requestAnimationFrame(updateAndDrawNeuralBackground);
+    }
+
+    resizeCanvas();
+    requestAnimationFrame(updateAndDrawNeuralBackground);
+
+    // -------------------------------------------------------------
+    // EASTER EGG: BRAIN STORM TRIGGER
+    // -------------------------------------------------------------
+    const avatarContainer = document.getElementById('avatar-egg');
+    let avatarClickCount = 0;
+    let lastClickTime = 0;
+
+    avatarContainer.addEventListener('click', () => {
+        const now = Date.now();
+        if (now - lastClickTime < 500) {
+            avatarClickCount++;
+        } else {
+            avatarClickCount = 1;
+        }
+        lastClickTime = now;
+
+        if (avatarClickCount >= 5) {
+            triggerBrainStorm();
+            avatarClickCount = 0;
+        }
+    });
+
+    function triggerBrainStorm() {
+        isBrainStorm = true;
+        brainStormTimer = 350; // frames (~6 seconds)
+        
+        if (audioEnabled) {
+            const chord = [130.81, 164.81, 196.00, 261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
+            chord.forEach((freq, idx) => {
+                setTimeout(() => {
+                    playSynthPluck(freq, 2.5);
+                }, idx * 45);
+            });
+        }
+
+        document.body.style.boxShadow = 'inset 0 0 100px rgba(143, 174, 255, 0.15)';
+        setTimeout(() => {
+            document.body.style.boxShadow = 'none';
+        }, 1000);
+    }
+
+    // -------------------------------------------------------------
+    // LEAKY INTEGRATE-AND-FIRE (LIF) NEURON SIMULATOR
+    // -------------------------------------------------------------
+    const lifCanvas = document.getElementById('lif-canvas');
+    const lCtx = lifCanvas.getContext('2d');
+    const neuronSoma = document.getElementById('neuron-soma');
+    const neuronAxon = document.getElementById('neuron-axon');
+    const axonSignal = document.getElementById('axon-signal');
+
+    // UI elements
+    const sliderIe = document.getElementById('slider-ie');
+    const sliderRm = document.getElementById('slider-rm');
+    const sliderNoise = document.getElementById('slider-noise');
+
+    const valIe = document.getElementById('val-ie');
+    const valRm = document.getElementById('val-rm');
+    const valNoise = document.getElementById('val-noise');
+
+    // LIF Constants
+    const Vrest = -70.0;    // mV
+    const Vreset = -75.0;   // mV
+    const Vthresh = -50.0;  // mV
+    const Vspike = 30.0;    // mV
+    const tau_m = 15.0;     // ms
+    const dt = 0.55;        // Euler step size
+
+    // LIF State variables
+    let Vm = Vrest;
+    let isRefractory = false;
+    let refractoryTimer = 0;
+    const refractoryPeriod = 4.0; // ms
+
+    // Scrolling oscilloscope trace buffer
+    const plotData = [];
+    const maxPlotPoints = 100;
+
+    function updateLIFModel() {
+        const Ie = parseFloat(sliderIe.value);
+        const Rm = parseFloat(sliderRm.value);
+        const noise = parseFloat(sliderNoise.value);
+
+        valIe.textContent = Ie.toFixed(1);
+        valRm.textContent = Rm.toFixed(1);
+        valNoise.textContent = noise.toFixed(1);
+
+        if (isRefractory) {
+            Vm = Vreset;
+            refractoryTimer -= dt;
+            if (refractoryTimer <= 0) {
+                isRefractory = false;
+            }
+        } else {
+            // Euler ODE integration
+            const randVal = (Math.random() - 0.5) * noise * 8.0;
+            const dVm = (-(Vm - Vrest) + Rm * Ie + randVal) / tau_m * dt;
+            Vm += dVm;
+
+            if (Vm >= Vthresh) {
+                Vm = Vspike; // threshold hit
+                isRefractory = true;
+                refractoryTimer = refractoryPeriod;
+                triggerNeuronSpikeVisual();
+            }
+        }
+
+        plotData.push(Vm);
+        if (plotData.length > maxPlotPoints) {
+            plotData.shift();
+        }
+    }
+
+    function triggerNeuronSpikeVisual() {
+        // Soma glow flash
+        neuronSoma.setAttribute('fill', '#fff');
+        neuronSoma.setAttribute('stroke-width', '4');
+        neuronSoma.style.filter = 'drop-shadow(0 0 8px var(--accent))';
+
+        // Slide signal dot along axon
+        axonSignal.setAttribute('opacity', '1');
+        axonSignal.setAttribute('cx', '116');
+        
+        if (audioEnabled) {
+            playSynthPluck(523.25, 0.4); // C5 note on spiking
+        }
+
+        let start = Date.now();
+        const axonLen = 164;
+        function slide() {
+            let elapsed = Date.now() - start;
+            let progress = elapsed / 280;
+            if (progress < 1) {
+                let cx = 116 + (axonLen * progress);
+                axonSignal.setAttribute('cx', cx.toString());
+                requestAnimationFrame(slide);
+            } else {
+                axonSignal.setAttribute('opacity', '0');
+                neuronSoma.setAttribute('fill', 'rgba(143, 174, 255, 0.08)');
+                neuronSoma.setAttribute('stroke-width', '2');
+                neuronSoma.style.filter = 'none';
+            }
+        }
+        requestAnimationFrame(slide);
+    }
+
+    function drawLIFPlot() {
+        const width = lifCanvas.clientWidth;
+        const height = lifCanvas.clientHeight;
+        
+        // Match buffer dimensions to CSS layout box (prevents scaling blur)
+        if (lifCanvas.width !== width || lifCanvas.height !== height) {
+            lifCanvas.width = width;
+            lifCanvas.height = height;
+        }
+
+        lCtx.clearRect(0, 0, width, height);
+
+        // Draw V_thresh line
+        const threshY = scaleVmToY(Vthresh, height);
+        lCtx.beginPath();
+        lCtx.setLineDash([4, 4]);
+        lCtx.moveTo(0, threshY);
+        lCtx.lineTo(width, threshY);
+        lCtx.strokeStyle = 'rgba(234, 64, 141, 0.35)'; // var(--pink)
+        lCtx.lineWidth = 1;
+        lCtx.stroke();
+        lCtx.setLineDash([]);
+
+        lCtx.font = '8px DM Mono';
+        lCtx.fillStyle = 'rgba(234, 64, 141, 0.7)';
+        lCtx.fillText('V_thresh (-50mV)', 8, threshY - 4);
+
+        // Draw V_rest line
+        const restY = scaleVmToY(Vrest, height);
+        lCtx.beginPath();
+        lCtx.setLineDash([2, 4]);
+        lCtx.moveTo(0, restY);
+        lCtx.lineTo(width, restY);
+        lCtx.strokeStyle = 'rgba(143, 174, 255, 0.16)';
+        lCtx.stroke();
+        lCtx.setLineDash([]);
+
+        lCtx.font = '8px DM Mono';
+        lCtx.fillStyle = 'rgba(143, 174, 255, 0.45)';
+        lCtx.fillText('V_rest (-70mV)', 8, restY + 10);
+
+        // Plot membrane potential curve
+        if (plotData.length < 2) return;
+
+        lCtx.beginPath();
+        lCtx.moveTo(0, scaleVmToY(plotData[0], height));
+        const step = width / (maxPlotPoints - 1);
+
+        for (let i = 1; i < plotData.length; i++) {
+            const x = i * step;
+            const y = scaleVmToY(plotData[i], height);
+            lCtx.lineTo(x, y);
+        }
+
+        lCtx.strokeStyle = 'var(--accent)';
+        lCtx.lineWidth = 2;
+        lCtx.stroke();
+    }
+
+    function scaleVmToY(val, height) {
+        const minVm = -85.0;
+        const maxVm = 35.0;
+        const padding = 12;
+        const scaled = (val - minVm) / (maxVm - minVm);
+        return height - padding - scaled * (height - padding * 2);
+    }
+
+    function loopLIFSimulator() {
+        const canvas = document.getElementById('lif-canvas');
+        if (!canvas || canvas.offsetParent === null) {
+            // Simulator is hidden, reduce CPU polling interval to 1s
+            setTimeout(loopLIFSimulator, 1000);
+            return;
+        }
+        updateLIFModel();
+        drawLIFPlot();
+        setTimeout(loopLIFSimulator, 16); // step simulator step rate (60Hz)
+    }
+    
+    loopLIFSimulator();
+</script>
+</body>
+</html>
