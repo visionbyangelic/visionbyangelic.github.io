@@ -187,6 +187,16 @@
         letter-spacing: 0.06em;
     }
 
+    /* Header Actions Container */
+    .header-actions {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        margin-top: 18px;
+        flex-wrap: wrap;
+    }
+
     /* Sound Control Panel in Header */
     .sound-control-header {
         display: inline-flex;
@@ -197,6 +207,27 @@
         padding: 6px 14px;
         border-radius: 20px;
         transition: all 0.3s ease;
+    }
+
+    /* Header Action Button (Guestbook) */
+    .header-action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(143, 174, 255, 0.03);
+        border: 1px solid var(--border);
+        padding: 7px 14px;
+        border-radius: 20px;
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--text);
+        text-decoration: none;
+        transition: all 0.3s ease;
+    }
+    
+    .header-action-btn:hover {
+        border-color: var(--border-hover);
+        background: rgba(143, 174, 255, 0.06);
     }
     
     .sound-control-header:hover {
@@ -615,19 +646,27 @@
                 <span class="tag">Future MSc Comp-Neuro</span>
             </div>
             
-            <!-- Auditory Soundscape Control -->
-            <div class="sound-control-header">
-                <div class="sound-info">
-                    <span class="sound-title">Synaptic Soundscape</span>
-                    <span class="sound-desc">Hover background to play</span>
+            <!-- Header Actions (Sound & Guestbook) -->
+            <div class="header-actions">
+                <!-- Auditory Soundscape Control -->
+                <div class="sound-control-header">
+                    <div class="sound-info">
+                        <span class="sound-title">Synaptic Soundscape</span>
+                        <span class="sound-desc">Hover background to play</span>
+                    </div>
+                    <canvas id="audio-visualizer" class="visualizer-canvas"></canvas>
+                    <button class="sound-btn" id="sound-toggle-btn" aria-label="Toggle Sound">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-waves" style="opacity: 0.3;"></path>
+                        </svg>
+                    </button>
                 </div>
-                <canvas id="audio-visualizer" class="visualizer-canvas"></canvas>
-                <button class="sound-btn" id="sound-toggle-btn" aria-label="Toggle Sound">
-                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-waves" style="opacity: 0.3;"></path>
-                    </svg>
-                </button>
+                
+                <!-- Guestbook Button -->
+                <a href="https://angelic-space.vercel.app" class="header-action-btn" target="_blank" rel="noopener">
+                    <span>💬</span> Leave a Note
+                </a>
             </div>
             <div class="secret-hint">Hint: Double-click avatar for brain activity.</div>
         </div>
