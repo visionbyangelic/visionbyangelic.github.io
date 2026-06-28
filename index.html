@@ -137,6 +137,15 @@
         transform: scale(1.05);
     }
 
+    .avatar-ring.brainstorming::before {
+        animation: spin 0.8s linear infinite !important;
+    }
+    
+    .avatar-ring.brainstorming .avatar {
+        transform: scale(1.1) !important;
+        box-shadow: 0 0 25px var(--accent) !important;
+    }
+
     .name {
         font-family: 'Playfair Display', serif;
         font-size: 2.15rem;
@@ -624,9 +633,6 @@
         .sound-control-header {
             display: none;
         }
-        .secret-hint {
-            display: none;
-        }
         .avatar {
             width: 80px;
             height: 80px;
@@ -673,10 +679,10 @@
                         <span class="sound-desc">Hover background to play</span>
                     </div>
                     <canvas id="audio-visualizer" class="visualizer-canvas"></canvas>
-                    <button class="sound-btn" id="sound-toggle-btn" aria-label="Toggle Sound">
+                    <button class="sound-btn active" id="sound-toggle-btn" aria-label="Toggle Sound">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-waves" style="opacity: 0.3;"></path>
+                            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" class="sound-waves" style="opacity: 1;"></path>
                         </svg>
                     </button>
                 </div>
@@ -1175,7 +1181,7 @@
     // -------------------------------------------------------------
     let audioCtx = null;
     let analyser = null;
-    let audioEnabled = false;
+    let audioEnabled = true;
     let visualizerInterval = null;
 
     const soundToggleBtn = document.getElementById('sound-toggle-btn');
@@ -1263,6 +1269,23 @@
             stopVisualizer();
         }
     });
+
+    // Automatically resume and initialize Audio Context on first user interaction
+    function initAudioOnFirstInteraction() {
+        if (audioEnabled) {
+            initAudio();
+            startVisualizer();
+            if (audioCtx && audioCtx.state === 'suspended') {
+                audioCtx.resume();
+            }
+        }
+        window.removeEventListener('click', initAudioOnFirstInteraction);
+        window.removeEventListener('mousemove', initAudioOnFirstInteraction);
+        window.removeEventListener('touchstart', initAudioOnFirstInteraction);
+    }
+    window.addEventListener('click', initAudioOnFirstInteraction);
+    window.addEventListener('mousemove', initAudioOnFirstInteraction);
+    window.addEventListener('touchstart', initAudioOnFirstInteraction);
 
     function startVisualizer() {
         if (visualizerInterval) cancelAnimationFrame(visualizerInterval);
@@ -1576,6 +1599,20 @@
         setTimeout(() => {
             document.body.style.boxShadow = 'none';
         }, 1000);
+
+        // Add spinning ring effect to avatar
+        const avatar = document.getElementById('avatar-egg');
+        if (avatar) {
+            avatar.classList.add('brainstorming');
+            setTimeout(() => {
+                avatar.classList.remove('brainstorming');
+            }, 6000);
+        }
+
+        // Stimulate all nodes to trigger a massive network spike cascade
+        nodes.forEach(node => {
+            node.stimulate(1.0);
+        });
     }
 
     // -------------------------------------------------------------
