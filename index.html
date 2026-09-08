@@ -55,7 +55,7 @@
         position: fixed;
         inset: 0;
         z-index: 0;
-        pointer-events: none; /* Prevent blocking hover and scroll events on page links */
+        pointer-events: none;
     }
 
     body::before {
@@ -474,7 +474,7 @@
         transform: translateX(2px);
     }
 
-    /* 🧪 LIF Simulator Card styling - matching design guidelines */
+    /* 🧪 LIF Simulator Card styling */
     .lif-simulator-card {
         background: var(--surface);
         padding: 20px;
@@ -577,7 +577,7 @@
         background: #04060b;
         border: 1px solid var(--border);
         border-radius: 6px;
-        touch-action: none; /* Prevents scroll interference on mobile screen swipe */
+        touch-action: none;
     }
 
     .footer {
@@ -609,7 +609,7 @@
 
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Mobile responsiveness tweaks for layout and lab */
+    /* Mobile responsiveness tweaks */
     @media (max-width: 580px) {
         .lif-simulator-layout {
             grid-template-columns: 1fr;
@@ -629,7 +629,6 @@
         .name { font-size: 1.85rem; }
         .link-title { font-size: 0.82rem; }
         
-        /* Declutter mobile header */
         .sound-control-header {
             display: none;
         }
@@ -670,7 +669,7 @@
                 <span class="tag">Future MSc Comp-Neuro</span>
             </div>
             
-            <!-- Header Actions (Sound & Guestbook) -->
+            <!-- Header Actions (Sound & Guestbook + Book a Call) -->
             <div class="header-actions">
                 <!-- Auditory Soundscape Control -->
                 <div class="sound-control-header">
@@ -691,6 +690,11 @@
                 <a href="https://angelic-space.vercel.app" class="header-action-btn" target="_blank" rel="noopener">
                     <span>💬</span> Leave a Note
                 </a>
+
+                <!-- Book a Call -->
+                <a href="https://calendar.app.google/nw4xpP43AfzA9t7v5" class="header-action-btn" target="_blank" rel="noopener">
+                    <span>🗓️</span> Book a Call
+                </a>
             </div>
             <div class="secret-hint">Hint: Double-click avatar for brain activity.</div>
         </div>
@@ -700,13 +704,13 @@
     <!-- Ongoing Research -->
     <section class="section">
         <div class="section-label">Ongoing Research</div>
-        <a href="https://github.com/visionbyangelic/em-nav-representation-geometry" class="link-card c-purple" target="_blank" rel="noopener" style="flex-direction: column; align-items: stretch; gap: 10px;">
+        <a href="https://github.com/visionbyangelic/ConnectomeToBehaviour" class="link-card c-purple" target="_blank" rel="noopener" style="flex-direction: column; align-items: stretch; gap: 10px;">
             <div style="display: flex; align-items: center; gap: 14px;">
-                <div class="icon">🔬</div>
+                <div class="icon">🪰</div>
                 <div class="link-info" style="flex: 1; min-width: 0;">
-                    <div class="link-title" style="white-space: normal; line-height: 1.35; font-weight: 600; font-size: 0.875rem;">EM-NAV: Geometry & Transferability of Spatial Representations</div>
+                    <div class="link-title" style="white-space: normal; line-height: 1.35; font-weight: 600; font-size: 0.875rem;">ConnectomeToBehaviour: Closed-Loop Whole-Brain Emulation of Drosophila</div>
                     <div class="link-desc" style="color: var(--accent2); font-family: 'DM Mono', monospace; font-size: 0.62rem; margin-top: 4px;">
-                        License: GPL v3 · GitHub Repo
+                        Ongoing · GitHub Repo
                     </div>
                 </div>
                 <span class="arrow" style="align-self: center;">→</span>
@@ -714,14 +718,14 @@
             
             <!-- Research Abstract -->
             <div style="margin-top: 4px; font-size: 0.78rem; line-height: 1.5; color: var(--text); opacity: 0.95;">
-                Computational neuroscience research study investigating how population sparsity, spiking thresholds, and network recurrence shape the geometric layout, linear decodability, and zero-shot transfer stability of emergent spatial manifolds learned from egocentric sensory data.
+                Closed-loop integration of a real biological wiring diagram (FlyWire / BANC / Male CNS), simplified neuron dynamics, and a physically realistic fly body to test whether natural behaviours can emerge without hand-coded rules.
             </div>
 
             <!-- Non-Technical translation -->
             <div style="background: rgba(143, 174, 255, 0.03); border: 1px solid rgba(160, 180, 255, 0.08); padding: 8px 12px; border-radius: 6px; margin-top: 2px;">
                 <span style="font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--accent3); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 3px;">Layperson Translation:</span>
                 <span style="font-size: 0.74rem; color: var(--muted); line-height: 1.45; display: block;">
-                    We are testing if forcing artificial intelligence to obey the same biological constraints as the human brain (like using spikes of electricity and very little energy) forces the AI to build a "mental map" of its world, just like we do.
+                    Scientists have mapped every connection in a fruit fly’s brain. This project asks: if we give that real wiring diagram simple firing rules and plug it into a virtual fly body, will the fly start walking, cleaning itself, and reaching for food on its own — without us programming those behaviours?
                 </span>
             </div>
 
@@ -729,7 +733,45 @@
             <div style="border-top: 1px solid rgba(160, 180, 255, 0.08); padding-top: 8px; display: flex; flex-direction: column; gap: 4px;">
                 <span style="font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--pink); text-transform: uppercase; font-weight: 600; display: block;">Research Stack:</span>
                 <span style="font-size: 0.74rem; color: var(--text); font-family: 'DM Mono', monospace; opacity: 0.85;">
-                    Python 3.10+ · snnTorch · PyTorch · Blender 3D · MiniGrid · PPO
+                    Brian2 · FlyWire / BANC · MuJoCo + NeuroMechFly · Python
+                </span>
+            </div>
+        </a>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- Completed Research -->
+    <section class="section">
+        <div class="section-label">Completed Research</div>
+        <a href="https://github.com/visionbyangelic/em-nav-representation-geometry" class="link-card c-purple" target="_blank" rel="noopener" style="flex-direction: column; align-items: stretch; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 14px;">
+                <div class="icon">🔬</div>
+                <div class="link-info" style="flex: 1; min-width: 0;">
+                    <div class="link-title" style="white-space: normal; line-height: 1.35; font-weight: 600; font-size: 0.875rem;">EM-NAV: Geometry & Transferability of Spatial Representations</div>
+                    <div class="link-desc" style="color: var(--accent3); font-family: 'DM Mono', monospace; font-size: 0.62rem; margin-top: 4px;">
+                        Completed · GitHub Repo
+                    </div>
+                </div>
+                <span class="badge">Completed</span>
+                <span class="arrow" style="align-self: center;">→</span>
+            </div>
+            
+            <div style="margin-top: 4px; font-size: 0.78rem; line-height: 1.5; color: var(--text); opacity: 0.95;">
+                Spiking + recurrence + sparsity produced place-cell-like coding with up to ~80× higher spatial information per spike than dense baselines. Spiking networks also transferred better to unseen 3D mazes.
+            </div>
+
+            <div style="background: rgba(143, 174, 255, 0.03); border: 1px solid rgba(160, 180, 255, 0.08); padding: 8px 12px; border-radius: 6px; margin-top: 2px;">
+                <span style="font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--accent3); text-transform: uppercase; font-weight: 600; display: block; margin-bottom: 3px;">Layperson Translation:</span>
+                <span style="font-size: 0.74rem; color: var(--muted); line-height: 1.45; display: block;">
+                    Forcing tiny AI networks to follow brain-like rules (spikes, sparse activity, memory) made them spontaneously build internal “you-are-here” maps — almost 80 times sharper than ordinary networks trained the same way.
+                </span>
+            </div>
+
+            <div style="border-top: 1px solid rgba(160, 180, 255, 0.08); padding-top: 8px; display: flex; flex-direction: column; gap: 4px;">
+                <span style="font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--pink); text-transform: uppercase; font-weight: 600; display: block;">Research Stack:</span>
+                <span style="font-size: 0.74rem; color: var(--text); font-family: 'DM Mono', monospace; opacity: 0.85;">
+                    Python · snnTorch · PyTorch · Blender 3D · MiniGrid · PPO
                 </span>
             </div>
         </a>
@@ -762,7 +804,7 @@
 
     <div class="divider accent"></div>
 
-    <!-- Leaky Integrate-and-Fire Model -->
+    <!-- Leaky Integrate-and-Fire Model (kept hidden) -->
     <section class="section" style="display: none;">
         <div class="section-label">Interactive LIF Simulator</div>
         <div class="lif-simulator-card">
@@ -797,17 +839,11 @@
                 <div class="lif-visualization">
                     <div class="lif-diagram-container">
                         <svg class="lif-neuron-svg" viewBox="0 0 400 80">
-                            <!-- Soma -->
                             <circle cx="100" cy="40" r="16" fill="rgba(143, 174, 255, 0.08)" stroke="var(--accent)" stroke-width="2" id="neuron-soma"></circle>
-                            <!-- Dendrites -->
                             <path d="M60 25 L85 35 M55 40 L84 40 M60 55 L85 45" stroke="var(--accent2)" stroke-width="1.5" stroke-linecap="round"></path>
-                            <!-- Axon -->
                             <path d="M116 40 L280 40" stroke="var(--accent2)" stroke-width="2" id="neuron-axon" stroke-dasharray="8 4" stroke-dashoffset="0"></path>
-                            <!-- Synaptic Terminals -->
                             <path d="M280 40 L310 25 M280 40 L320 40 M280 40 L310 55" stroke="var(--accent)" stroke-width="1.5" stroke-linecap="round"></path>
-                            <!-- Spike Wave -->
                             <circle cx="116" cy="40" r="5" fill="#fff" opacity="0" id="axon-signal"></circle>
-                            <!-- Labels -->
                             <text x="100" y="44" font-family="Inter" font-size="9" fill="#fff" text-anchor="middle" font-weight="600">SOMA</text>
                             <text x="190" y="32" font-family="DM Mono" font-size="8" fill="var(--muted)" text-anchor="middle">AXON (Spike Propagation)</text>
                             <text x="325" y="43" font-family="Inter" font-size="9" fill="var(--accent)">SYNAPSE</text>
@@ -910,7 +946,6 @@
                 <span class="arrow">→</span>
             </div>
 
-            </a>
             <a href="https://africanneurodataresearch.org/" class="link-card c-teal" target="_blank" rel="noopener">
                 <div class="icon">🧠</div>
                 <div class="link-info">
@@ -991,7 +1026,6 @@
                 </div>
                 <span class="arrow">→</span>
             </a>
-                        <!-- Brain Aging Dynamics Modeling -->
             <div class="link-card c-purple">
                 <div class="icon">🧬</div>
                 <div class="link-info">
@@ -1171,7 +1205,6 @@
                 </div>
                 <span class="arrow">→</span>
             </a>
-            </a>
             
             <a href="https://linktr.ee/researchasstories" class="link-card c-blue" target="_blank" rel="noopener">
                 <div class="icon">💬</div>
@@ -1252,7 +1285,6 @@
         analyser.fftSize = 32;
         analyser.connect(audioCtx.destination);
         
-        // Adjust canvas resolution for high-DPI displays
         const dpr = window.devicePixelRatio || 1;
         visualizerCanvas.width = 40 * dpr;
         visualizerCanvas.height = 14 * dpr;
@@ -1271,13 +1303,11 @@
         const gainNode = audioCtx.createGain();
 
         osc.connect(gainNode);
-        gainNode.connect(analyser); // pipeline output to the visualizer
+        gainNode.connect(analyser);
 
-        // Triangle oscillator provides a soft, organic pluck
         osc.type = 'triangle';
         osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
 
-        // Amplitude Envelope (ADSR)
         gainNode.gain.setValueAtTime(0.001, audioCtx.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.12, audioCtx.currentTime + 0.015);
         gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
@@ -1299,7 +1329,6 @@
             soundToggleBtn.classList.add('active');
             soundWaves.style.opacity = '1';
             startVisualizer();
-            // Intro chord
             setTimeout(() => playSynthPluck(261.63, 1.2), 0);
             setTimeout(() => playSynthPluck(329.63, 1.2), 100);
             setTimeout(() => playSynthPluck(392.00, 1.2), 200);
@@ -1311,7 +1340,6 @@
         }
     });
 
-    // Automatically resume and initialize Audio Context on first user interaction
     function initAudioOnFirstInteraction() {
         if (audioEnabled) {
             initAudio();
@@ -1476,14 +1504,12 @@
     function initNeuralNetwork() {
         nodes = [];
         pulses = [];
-        // Scale node count by screen resolution for mobile performance
         const count = Math.min(maxNodes, Math.floor((neuralCanvas.width * neuralCanvas.height) / 22000));
         for (let i = 0; i < count; i++) {
             nodes.push(new NeuronNode(Math.random() * neuralCanvas.width, Math.random() * neuralCanvas.height));
         }
     }
 
-    // Capture background mouse coordinates (since pointer-events is none on canvas)
     window.addEventListener('mousemove', (e) => {
         mouseNode.x = e.clientX;
         mouseNode.y = e.clientY;
@@ -1506,7 +1532,6 @@
         mouseNode.y = null;
     });
 
-    // Capture clicks to trigger background spikes (ignoring UI buttons/links)
     window.addEventListener('click', (e) => {
         if (e.target.closest('a, button, input, label, .lif-simulator-card')) return;
         nodes.forEach(node => {
@@ -1525,7 +1550,6 @@
             if (brainStormTimer <= 0) isBrainStorm = false;
         }
 
-        // Draw connections
         for (let i = 0; i < nodes.length; i++) {
             for (let j = i + 1; j < nodes.length; j++) {
                 const n1 = nodes[i];
@@ -1553,7 +1577,6 @@
             }
         }
 
-        // Draw pulses (Action Potentials)
         for (let i = pulses.length - 1; i >= 0; i--) {
             const p = pulses[i];
             p.progress += p.speed;
@@ -1580,7 +1603,6 @@
             nCtx.shadowBlur = 0;
         }
 
-        // Update Nodes
         nodes.forEach(node => {
             node.update();
             
@@ -1625,7 +1647,7 @@
 
     function triggerBrainStorm() {
         isBrainStorm = true;
-        brainStormTimer = 350; // frames (~6 seconds)
+        brainStormTimer = 350;
         
         if (audioEnabled) {
             const chord = [130.81, 164.81, 196.00, 261.63, 329.63, 392.00, 523.25, 659.25, 783.99, 1046.50];
@@ -1641,7 +1663,6 @@
             document.body.style.boxShadow = 'none';
         }, 1000);
 
-        // Add spinning ring effect to avatar
         const avatar = document.getElementById('avatar-egg');
         if (avatar) {
             avatar.classList.add('brainstorming');
@@ -1650,7 +1671,6 @@
             }, 6000);
         }
 
-        // Stimulate all nodes to trigger a massive network spike cascade
         nodes.forEach(node => {
             node.stimulate(1.0);
         });
@@ -1665,7 +1685,6 @@
     const neuronAxon = document.getElementById('neuron-axon');
     const axonSignal = document.getElementById('axon-signal');
 
-    // UI elements
     const sliderIe = document.getElementById('slider-ie');
     const sliderRm = document.getElementById('slider-rm');
     const sliderNoise = document.getElementById('slider-noise');
@@ -1674,21 +1693,18 @@
     const valRm = document.getElementById('val-rm');
     const valNoise = document.getElementById('val-noise');
 
-    // LIF Constants
-    const Vrest = -70.0;    // mV
-    const Vreset = -75.0;   // mV
-    const Vthresh = -50.0;  // mV
-    const Vspike = 30.0;    // mV
-    const tau_m = 15.0;     // ms
-    const dt = 0.55;        // Euler step size
+    const Vrest = -70.0;
+    const Vreset = -75.0;
+    const Vthresh = -50.0;
+    const Vspike = 30.0;
+    const tau_m = 15.0;
+    const dt = 0.55;
 
-    // LIF State variables
     let Vm = Vrest;
     let isRefractory = false;
     let refractoryTimer = 0;
-    const refractoryPeriod = 4.0; // ms
+    const refractoryPeriod = 4.0;
 
-    // Scrolling oscilloscope trace buffer
     const plotData = [];
     const maxPlotPoints = 100;
 
@@ -1708,13 +1724,12 @@
                 isRefractory = false;
             }
         } else {
-            // Euler ODE integration
             const randVal = (Math.random() - 0.5) * noise * 8.0;
             const dVm = (-(Vm - Vrest) + Rm * Ie + randVal) / tau_m * dt;
             Vm += dVm;
 
             if (Vm >= Vthresh) {
-                Vm = Vspike; // threshold hit
+                Vm = Vspike;
                 isRefractory = true;
                 refractoryTimer = refractoryPeriod;
                 triggerNeuronSpikeVisual();
@@ -1728,17 +1743,15 @@
     }
 
     function triggerNeuronSpikeVisual() {
-        // Soma glow flash
         neuronSoma.setAttribute('fill', '#fff');
         neuronSoma.setAttribute('stroke-width', '4');
         neuronSoma.style.filter = 'drop-shadow(0 0 8px var(--accent))';
 
-        // Slide signal dot along axon
         axonSignal.setAttribute('opacity', '1');
         axonSignal.setAttribute('cx', '116');
         
         if (audioEnabled) {
-            playSynthPluck(523.25, 0.4); // C5 note on spiking
+            playSynthPluck(523.25, 0.4);
         }
 
         let start = Date.now();
@@ -1764,7 +1777,6 @@
         const width = lifCanvas.clientWidth;
         const height = lifCanvas.clientHeight;
         
-        // Match buffer dimensions to CSS layout box (prevents scaling blur)
         if (lifCanvas.width !== width || lifCanvas.height !== height) {
             lifCanvas.width = width;
             lifCanvas.height = height;
@@ -1772,13 +1784,12 @@
 
         lCtx.clearRect(0, 0, width, height);
 
-        // Draw V_thresh line
         const threshY = scaleVmToY(Vthresh, height);
         lCtx.beginPath();
         lCtx.setLineDash([4, 4]);
         lCtx.moveTo(0, threshY);
         lCtx.lineTo(width, threshY);
-        lCtx.strokeStyle = 'rgba(234, 64, 141, 0.35)'; // var(--pink)
+        lCtx.strokeStyle = 'rgba(234, 64, 141, 0.35)';
         lCtx.lineWidth = 1;
         lCtx.stroke();
         lCtx.setLineDash([]);
@@ -1787,7 +1798,6 @@
         lCtx.fillStyle = 'rgba(234, 64, 141, 0.7)';
         lCtx.fillText('V_thresh (-50mV)', 8, threshY - 4);
 
-        // Draw V_rest line
         const restY = scaleVmToY(Vrest, height);
         lCtx.beginPath();
         lCtx.setLineDash([2, 4]);
@@ -1801,7 +1811,6 @@
         lCtx.fillStyle = 'rgba(143, 174, 255, 0.45)';
         lCtx.fillText('V_rest (-70mV)', 8, restY + 10);
 
-        // Plot membrane potential curve
         if (plotData.length < 2) return;
 
         lCtx.beginPath();
@@ -1830,13 +1839,12 @@
     function loopLIFSimulator() {
         const canvas = document.getElementById('lif-canvas');
         if (!canvas || canvas.offsetParent === null) {
-            // Simulator is hidden, reduce CPU polling interval to 1s
             setTimeout(loopLIFSimulator, 1000);
             return;
         }
         updateLIFModel();
         drawLIFPlot();
-        setTimeout(loopLIFSimulator, 16); // step simulator step rate (60Hz)
+        setTimeout(loopLIFSimulator, 16);
     }
     
     loopLIFSimulator();
