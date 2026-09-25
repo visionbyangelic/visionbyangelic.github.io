@@ -289,6 +289,25 @@
         letter-spacing: 0.06em;
     }
 
+    /* 3. Subtle Resting Potential Glow on the primary tag */
+    .tags .tag:last-child {
+        position: relative;
+        border-color: rgba(143, 174, 255, 0.35);
+        box-shadow: 0 0 10px rgba(143, 174, 255, 0.08);
+        animation: membranePulse 3.5s ease-in-out infinite;
+    }
+
+    @keyframes membranePulse {
+        0%, 100% {
+            border-color: rgba(143, 174, 255, 0.25);
+            box-shadow: 0 0 4px rgba(143, 174, 255, 0.05);
+        }
+        50% {
+            border-color: rgba(143, 174, 255, 0.6);
+            box-shadow: 0 0 14px rgba(143, 174, 255, 0.22);
+        }
+    }
+
     /* Header Actions Container */
     .header-actions {
         display: flex;
@@ -496,6 +515,31 @@
 
     .link-card:hover::before { opacity: 1; }
 
+    /* 1. Synaptic Spike Beam (Desktop Only - Won't trigger or glitch on mobile) */
+    @media (hover: hover) and (pointer: fine) {
+        .link-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -120%;
+            width: 70%;
+            height: 100%;
+            background: linear-gradient(
+                90deg, 
+                transparent, 
+                rgba(143, 174, 255, 0.16), 
+                transparent
+            );
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        .link-card:hover::after {
+            left: 140%;
+            transition: left 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+    }
+
     .c-blue   { --c: var(--accent);  }
     .c-purple { --c: var(--pink); }
     .c-green  { --c: var(--accent3); }
@@ -629,6 +673,7 @@
     .control-slider::-webkit-slider-thumb {
         -webkit-appearance: none;
         appearance: none;
+        width: 100px;
         width: 10px;
         height: 10px;
         border-radius: 50%;
@@ -1732,6 +1777,17 @@
         const scaled = (val - minVm) / (maxVm - minVm);
         return height - padding - scaled * (height - padding * 2);
     }
+
+    // 2. Active Circuit Firing: Burst-stimulate background nodes when hovering cards
+    document.querySelectorAll('.link-card').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            if (!nodes || nodes.length === 0) return;
+            for (let i = 0; i < 5; i++) {
+                const randomNode = nodes[Math.floor(Math.random() * nodes.length)];
+                if (randomNode) randomNode.stimulate(0.85);
+            }
+        });
+    });
 
     function loopLIFSimulator() {
         const canvas = document.getElementById('lif-canvas');
